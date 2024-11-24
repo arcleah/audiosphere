@@ -1,0 +1,81 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #5A639C; /* Set the background color */
+}
+
+/*TAB BAR STUFF*/
+.tab-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 332px;
+    height: 832px;
+    background-color: #19182D;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.audiosphere-logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #E2BBE9;
+    text-align: center;
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+
+.nav-button {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Align items vertically center */
+    width: 100%;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    color: #9B86BD;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-align: left;
+    cursor: pointer;
+    padding-left: 30px; /* Adjust padding as needed */
+    margin: 20px; /* Increase space between buttons if needed */
+    transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.nav-icon {
+    width: 35px; /* Set width of the icon */
+    height: 30px; /* Set height of the icon */
+    margin-right: 20px; /* Space between icon and text */
+}
+
+.nav-button:hover {
+    color: #E2BBE9; /* Change text color on hover */
+}
+
+.nav-button.active {
+    color: #E2BBE9; /* Keep this color when active (clicked) */
+}
+
+main {
+    padding: 1rem;
+}
+
+.music-bar {
+    position: fixed;
+    bottom: 0;
+    width: 1500px;
+    height: 120px;
+    background-color: #2F2C50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    margin-bottom: 120px; /* Add this to prevent content from being hidden behind the music bar */
+}
