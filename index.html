@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!--TAB BAR STUFF-->
     <nav class="tab-bar">
         <h1 class="audiosphere-logo">AUDIOSPHERE</h1>
         <button id="homeBtn" class="nav-button">
@@ -14,6 +15,9 @@
         </button>
         <button id="searchBtn" class="nav-button">
             <img src="icons/search-svgrepo-com.svg" alt="Search Icon" class="nav-icon">Search
+        </button>
+        <button id="playlistBtn" class="nav-button">
+            <img src="icons/list-music-svgrepo-com.svg" alt="Playlist Icon" class="nav-icon">Playlists
         </button>
         <button id="createBtn" class="nav-button">
             <img src="icons/plus-large-svgrepo-com.svg" alt="Create Icon" class="nav-icon">Create
@@ -26,6 +30,35 @@
         </button>
     </nav>
     <script src="script.js"></script>
-    <div class="music-bar"></div>
+    
+    <!--MUSIC BAR STUFF-->
+    <div class="music-bar">
+        <!-- MUSIC CONTROL BUTTONS CONTAINER -->
+        <div class="music-controls-container">
+            <button id="shuffleBtn" class="music-control">
+                <img src="icons/shuffle-svgrepo-com.svg" alt="Shuffle" />
+            </button>
+            <button id="rewindBtn" class="music-control rewind-btn">
+                <img src="icons/backward-step-svgrepo-com.svg" alt="Rewind" />
+            </button>
+            <button id="playPauseBtn" class="music-control play-pause-btn">
+                <img src="icons/circle-play-svgrepo-com.svg" alt="Play" id="playIcon" />
+                <img src="icons/circle-pause-svgrepo-com.svg" alt="Pause" id="pauseIcon" style="display: none;" />
+            </button>
+            <button id="forwardBtn" class="music-control forward-btn">
+                <img src="icons/forward-step-svgrepo-com.svg" alt="Forward" />
+            </button>
+            <button id="repeatBtn" class="music-control">
+                <img src="icons/repeat-svgrepo-com.svg" alt="Repeat" />
+            </button>
+        </div>
+    
+        <!-- MUSIC SLIDER -->
+        <div class="slider-container">
+            <span id="currentTime">0:00</span>
+            <input type="range" id="timeSlider" value="0" min="0" max="100" step="1">
+            <span id="totalTime">3:30</span> <!-- Replace with actual duration -->
+        </div>
+    </div>
 </body>
 </html>

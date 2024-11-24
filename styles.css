@@ -44,7 +44,7 @@ body {
     cursor: pointer;
     padding-left: 30px; /* Adjust padding as needed */
     margin: 20px; /* Increase space between buttons if needed */
-    transition: color 0.3s ease; /* Smooth transition for text color */
+    transition: filter 0.3s ease; /* Smooth transition for text color */
 }
 
 .nav-icon {
@@ -54,28 +54,102 @@ body {
 }
 
 .nav-button:hover {
-    color: #E2BBE9; /* Change text color on hover */
+    filter: brightness(1.5); /* Brighten icon on hover */
 }
 
 .nav-button.active {
-    color: #E2BBE9; /* Keep this color when active (clicked) */
+    filter: brightness(1.5); /* Brighten icon on hover */
 }
 
 main {
     padding: 1rem;
 }
 
+/*MUSIC BAR STUFF*/
 .music-bar {
     position: fixed;
     bottom: 0;
-    width: 1500px;
-    height: 120px;
-    background-color: #2F2C50;
+    left: 0;
+    right: 0;
+    height: auto; /* Allow height to adjust based on content */
+    background-color: #2F2C50; /* Background color similar to Spotify */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center align items */
+    padding: 10px; /* Padding around the controls */
+}
+
+.music-control {
+    background: none; /* No background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 2px; /* Space between buttons */
+}
+
+.music-controls-container {
+    display: flex; /* Align buttons in a row */
+    padding: 10px; /* Add padding around the slider */
+    justify-content: center; /* Center align buttons horizontally */
+}
+
+.music-control img {
+    width: 20px; /* Default icon size */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.play-pause-btn img {
+    width: 40px; /* Make play/pause icon larger */
+} 
+
+.rewind-btn img {
+    width: 25px; /* Make play/pause icon larger */
+} 
+
+.forward-btn img {
+    width: 25px; /* Make play/pause icon larger */
+} 
+
+.music-control:hover img {
+    filter: brightness(1.5); /* Brighten icon on hover */
 }
 
 main {
     margin-bottom: 120px; /* Add this to prevent content from being hidden behind the music bar */
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px; /* Add padding around the slider */
+}
+
+#timeSlider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 450px; /* Width of the slider */
+    height: 3px; /* Height of the slider */
+    background: #9B86BD; /* Background color of the slider */
+    margin: 0 10px; /* Space between time labels and slider */
+    border-radius: 10px; /* Rounded corners for the track */
+}
+
+#timeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    width: 15px; /* Width of the thumb */
+    height: 15px; /* Height of the thumb */
+    border-radius: 50%; /* Round thumb */
+    background: #ccc; /* Color of the thumb */
+}
+
+#timeSlider::-moz-range-thumb {
+    width: 15px; /* Width of the thumb */
+    height: 15px; /* Height of the thumb */
+    border-radius: 50%; /* Round thumb */
+    background: #ccc; /* Color of the thumb */
+}
+
+#currentTime, #totalTime {
+    color: #ccc; /* Text color for time labels */
 }
