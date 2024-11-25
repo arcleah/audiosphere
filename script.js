@@ -1,62 +1,118 @@
+/**
+ * Sets up click event listeners for tab bar navigation buttons to highlight the active tab.
+ */
 document.addEventListener('DOMContentLoaded', function() {
+    // Select all elements with the class 'nav-button'
+    const tabButtons = document.querySelectorAll('.nav-button');
+    
+    // Iterate over each tab button
+    tabButtons.forEach(button => {
+        // Add a click event listener to each button
+        button.addEventListener('click', function() {
+            // Remove 'active' class from all buttons to reset their state
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add 'active' class to the clicked button to highlight it
+            this.classList.add('active');
+        });
+    });
+});
+
+/**
+ * Sets up click event listeners for the play/pause, shuffle, repeat, forward, and rewind buttons.
+ * Toggles between play and pause states for the play/pause button, and updates tooltips accordingly.
+ * For shuffle, repeat, forward, and rewind buttons, toggles their active state and updates tooltips.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the play/pause button and its associated icons
     const playPauseBtn = document.getElementById('playPauseBtn');
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
     
-    const timeSlider = document.getElementById('timeSlider');
-    const currentTimeDisplay = document.getElementById('currentTime');
-    const totalTimeDisplay = document.getElementById('totalTime');
-
+    // Initialize a variable to track the playing state
     let isPlaying = false;
-    
-    // Example total duration (in seconds)
-    const totalDuration = 210; // Replace with actual duration in seconds
-    totalTimeDisplay.textContent = formatTime(totalDuration);
 
-    // Update slider max value
-    timeSlider.max = totalDuration;
-
+    // Add a click event listener to the play/pause button
     playPauseBtn.addEventListener('click', function() {
+        // Toggle the playing state
         isPlaying = !isPlaying;
         if (isPlaying) {
+            // If playing, hide the play icon and show the pause icon
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
-            // Code to play music goes here
-            startTimer(); // Start updating the timer
+            // Update tooltip to indicate that clicking will pause the music
+            playPauseBtn.setAttribute('data-tooltip', 'Pause'); 
         } else {
+            // If paused, show the play icon and hide the pause icon
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
-            // Code to pause music goes here
-            clearInterval(timerInterval); // Stop updating timer
+            // Update tooltip to indicate that clicking will play the music
+            playPauseBtn.setAttribute('data-tooltip', 'Play'); 
         }
+        // Hide tooltip immediately on click
+        playPauseBtn.removeAttribute('data-visible');
     });
 
-   let timerInterval;
+    // Get references to shuffle, repeat, rewind, and forward buttons
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const repeatBtn = document.getElementById('repeatBtn');
+    const rewindBtn = document.getElementById('rewindBtn');
+    const forwardBtn = document.getElementById('forwardBtn');
 
-   function startTimer() {
-       let currentTime = 0;
-       timerInterval = setInterval(() => {
-           if (currentTime < totalDuration) {
-               currentTime++;
-               currentTimeDisplay.textContent = formatTime(currentTime);
-               timeSlider.value = currentTime;
-           } else {
-               clearInterval(timerInterval);
-               isPlaying = false;
-               playIcon.style.display = 'block';
-               pauseIcon.style.display = 'none';
-           }
-       }, 1000); // Update every second
-   }
+    // Function to handle tooltip visibility with a delay
+    function handleTooltip(button) {
+        let tooltipTimeout;
 
-   function formatTime(seconds) {
-       const minutes = Math.floor(seconds / 60);
-       const secs = seconds % 60;
-       return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-   }
+        // Show tooltip after a delay when mouse enters the button
+        button.addEventListener('mouseenter', function() {
+            tooltipTimeout = setTimeout(() => {
+                button.setAttribute('data-visible', 'true'); // Show tooltip after 500 milliseconds
+            }, 500); // 500 milliseconds (0.5 seconds)
+        });
 
-   // Optional: Add event listener to update playback position when slider is changed
-   timeSlider.addEventListener('input', function() {
-       // Code to seek to this time in your audio player goes here
-   });
+        // Hide tooltip when mouse leaves the button
+        button.addEventListener('mouseleave', function() {
+            clearTimeout(tooltipTimeout); // Clear timeout if mouse leaves before 0.5 seconds
+            button.removeAttribute('data-visible'); // Hide tooltip immediately
+        });
+        
+        // Hide tooltip immediately when clicked
+        button.addEventListener('click', function() {
+            clearTimeout(tooltipTimeout); // Clear any existing timeout
+            button.removeAttribute('data-visible'); // Hide tooltip immediately
+        });
+    }
+
+    // Apply tooltip handling for all relevant buttons
+    handleTooltip(playPauseBtn);
+    handleTooltip(shuffleBtn);
+    handleTooltip(repeatBtn);
+    handleTooltip(rewindBtn); 
+    handleTooltip(forwardBtn);
+    
+    // Add a click event listener to the shuffle button
+    shuffleBtn.addEventListener('click', function() {
+        const isShuffled = shuffleBtn.classList.toggle('active'); // Toggle active state of shuffle button
+        shuffleBtn.setAttribute('data-tooltip', isShuffled ? 'Disable shuffle' : 'Shuffle'); // Update tooltip text based on state
+        shuffleBtn.removeAttribute('data-visible'); // Hide tooltip immediately on click
+    });
+
+    // Add a click event listener to the repeat button
+    repeatBtn.addEventListener('click', function() {
+        const isRepeating = repeatBtn.classList.toggle('active'); // Toggle active state of repeat button
+        repeatBtn.setAttribute('data-tooltip', isRepeating ? 'Disable repeat' : 'Repeat'); // Update tooltip text based on state
+        repeatBtn.removeAttribute('data-visible'); // Hide tooltip immediately on click
+    });
+
+    // Add a click event listener to the rewind button
+    rewindBtn.addEventListener('click', function() {
+        // Your logic for rewinding goes here (if any)
+        rewindBtn.removeAttribute('data-visible'); // Hide tooltip immediately on click
+    });
+
+    // Add a click event listener to the forward button
+    forwardBtn.addEventListener('click', function() {
+        // Your logic for forwarding goes here (if any)
+        forwardBtn.removeAttribute('data-visible'); // Hide tooltip immediately on click
+    });
 });
