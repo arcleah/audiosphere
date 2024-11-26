@@ -1,0 +1,58 @@
+.tab-bar {
+    position: fixed; /* Fix the position of the tab bar */
+    left: 0; /* Align to the left edge */
+    top: 0; /* Align to the top edge */
+    width: 332px; /* Set the width of the tab bar */
+    height: 832px; /* Set the height of the tab bar */
+    background-color: #19182D; /* Set the background color of the tab bar */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center align items horizontally */
+    padding-top: 20px; /* Add padding to the top */
+}
+
+.audiosphere-logo {
+    font-family: 'Inter', sans-serif; /* Set the font for the logo */
+    font-size: 36px; /* Set the font size */
+    font-weight: bold; /* Make the text bold */
+    color: #E2BBE9; /* Set the text color */
+    text-align: center; /* Center align the text */
+    margin: 10px 0; /* Add vertical margin */
+    letter-spacing: 2px; /* Increase spacing between letters */
+}
+
+.nav-button {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Align items vertically center */
+    width: 100%; /* Set full width */
+    height: 30px; /* Set height of the button */
+    background-color: transparent; /* Make background transparent */
+    border: none; /* Remove border */
+    color: #9B86BD; /* Set text color */
+    font-family: 'Inter', sans-serif; /* Set font family */
+    font-size: 20px; /* Set font size */
+    letter-spacing: 2px; /* Increase spacing between letters */
+    text-align: left; /* Align text to the left */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    padding-left: 30px; /* Add left padding */
+    margin: 20px; /* Add margin around the button */
+    transition: filter 0.3s ease; /* Smooth transition for brightness change */
+}
+
+.nav-icon {
+    width: 35px; /* Set width of the icon */
+    height: 30px; /* Set height of the icon */
+    margin-right: 20px; /* Add right margin to create space between icon and text */
+}
+
+.nav-button:hover {
+    filter: brightness(1.5); /* Brighten icon on hover */
+}
+
+.nav-button.active {
+    filter: brightness(1.5); /* Brighten icon when active */
+}
+
+main {
+    padding: 1rem; /* Add padding to the main content area */
+}

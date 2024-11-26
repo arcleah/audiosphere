@@ -1,24 +1,4 @@
 /**
- * Sets up click event listeners for tab bar navigation buttons to highlight the active tab.
- */
-document.addEventListener('DOMContentLoaded', function() {
-    // Select all elements with the class 'nav-button'
-    const tabButtons = document.querySelectorAll('.nav-button');
-    
-    // Iterate over each tab button
-    tabButtons.forEach(button => {
-        // Add a click event listener to each button
-        button.addEventListener('click', function() {
-            // Remove 'active' class from all buttons to reset their state
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add 'active' class to the clicked button to highlight it
-            this.classList.add('active');
-        });
-    });
-});
-
-/**
  * Sets up click event listeners for the play/pause, shuffle, repeat, forward, and rewind buttons.
  * Toggles between play and pause states for the play/pause button, and updates tooltips accordingly.
  * For shuffle, repeat, forward, and rewind buttons, toggles their active state and updates tooltips.
@@ -56,8 +36,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get references to shuffle, repeat, rewind, and forward buttons
     const shuffleBtn = document.getElementById('shuffleBtn');
     const repeatBtn = document.getElementById('repeatBtn');
-    const rewindBtn = document.getElementById('rewindBtn');
-    const forwardBtn = document.getElementById('forwardBtn');
+    const rewindBtn = document.getElementById('previousBtn');
+    const forwardBtn = document.getElementById('nextBtn');
 
     // Function to handle tooltip visibility with a delay
     function handleTooltip(button) {
@@ -87,9 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
     handleTooltip(playPauseBtn);
     handleTooltip(shuffleBtn);
     handleTooltip(repeatBtn);
-    handleTooltip(rewindBtn); 
-    handleTooltip(forwardBtn);
-    
+    handleTooltip(previousBtn); 
+    handleTooltip(nextBtn);
+
     // Add a click event listener to the shuffle button
     shuffleBtn.addEventListener('click', function() {
         const isShuffled = shuffleBtn.classList.toggle('active'); // Toggle active state of shuffle button

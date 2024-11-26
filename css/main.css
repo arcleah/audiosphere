@@ -1,0 +1,9 @@
+/* main.css */
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif; /* Set the default font for the entire document */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-color: #5A639C; /* Set the background color */
+}
