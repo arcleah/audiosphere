@@ -1,13 +1,24 @@
-import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import Layout from "./layout";
 import HomePage from "./pages/homepage";
-// this is where the routing will start
+import SearchPage from "./pages/search";
+import CreatePage from "./pages/create";
+import NotificationsPage from "./pages/notifications";
+import ProfilePage from "./pages/profile";
+import PlaylistPage from "./pages/playlist";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="search" element={<SearchPage />} />
+          <Route path="create" element={<CreatePage />} />
+          <Route path="notifications" element={<NotificationsPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="playlist" element={<PlaylistPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

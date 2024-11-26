@@ -1,0 +1,33 @@
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #2d2d5b; /* Match the sidebar color */
+  color: white;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sidebar button:hover {
+  background-color: #444b7c; /* Highlight on hover */
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  background-color: #f0f0f0; /* Match the background color */
+}
