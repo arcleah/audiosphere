@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tab Bar</title>
+    <link rel="stylesheet" href="css/tabbar.css">
+    <link rel="stylesheet" href="css/main.css"> 
+    <link rel="stylesheet" href="css/musicbar.css">
+</head>
+<body>
+    <nav class="tab-bar">
+        <h1 class="audiosphere-logo">AUDIOSPHERE</h1>
+        <button id="homeBtn" class="nav-button">
+            <img src="icons/house-chimney-blank-svgrepo-com.svg" alt="Home Icon" class="nav-icon"> Home
+        </button>
+        <button id="searchBtn" class="nav-button">
+            <img src="icons/search-svgrepo-com.svg" alt="Search Icon" class="nav-icon">Search
+        </button>
+        <button id="playlistBtn" class="nav-button">
+            <img src="icons/list-music-svgrepo-com.svg" alt="Playlist Icon" class="nav-icon">Playlists
+        </button>
+        <button id="createBtn" class="nav-button">
+            <img src="icons/plus-large-svgrepo-com.svg" alt="Create Icon" class="nav-icon">Create
+        </button>
+        <button id="notificationsBtn" class="nav-button">
+            <img src="icons/heart-svgrepo-com.svg" alt="Notifications Icon" class="nav-icon">Notifications
+        </button>
+        <button id="profileBtn" class="nav-button">
+            <img src="icons/user-svgrepo-com.svg" alt="Profile Icon" class="nav-icon">Profile
+        </button>
+    </nav>
+
+        <!--MUSIC BAR STUFF-->
+        <div class="music-bar">
+            <!-- MUSIC CONTROL BUTTONS CONTAINER -->
+            <div class="music-controls-container">
+                <div class="music-buttons-container">
+                    <button id="shuffleBtn" class="music-control" data-tooltip="Shuffle">
+                        <img src="icons/shuffle-svgrepo-com.svg" alt="Shuffle" />
+                    </button>
+                    <button id="previousBtn" class="music-control previous-btn" data-tooltip="Previous">
+                        <img src="icons/backward-step-svgrepo-com.svg" alt="Previous" />
+                    </button>
+                    <button id="playPauseBtn" class="music-control play-pause-btn" data-tooltip="Play">
+                        <img src="icons/circle-play-svgrepo-com.svg" alt="Play" id="playIcon" />
+                        <img src="icons/circle-pause-svgrepo-com.svg" alt="Pause" id="pauseIcon" style="display: none;" />
+                    </button>
+                    <button id="nextBtn" class="music-control next-btn" data-tooltip="Next">
+                        <img src="icons/forward-step-svgrepo-com.svg" alt="Next" />
+                    </button>
+                    <button id="repeatBtn" class="music-control" data-tooltip="Repeat">
+                        <img src="icons/repeat-svgrepo-com.svg" alt="Repeat" />
+                    </button>
+                </div>
+    
+                <!-- TIME SLIDER CONTAINER -->
+                <div class="time-slider-container">
+                    <span id="currentTime">0:00</span>
+                    <input type='range' id='timeSlider' value='0' min='0' max='100' step='1'>
+                    <span id='totalTime'>3:30</span> <!-- Simulate a song of time 3:30-->
+                </div>
+            </div>
+    
+            <!-- VOLUME CONTROL -->
+            <div class='volume-controls-container'>
+                <div class='volume-control'>
+                    <button id='volumeBtn' class='music-control' data-tooltip='Mute'>
+                        <img src='icons/volume-max-svgrepo-com.svg' alt='Volume' id='volumeIcon' />
+                        <img src='icons/volume-xmark-svgrepo-com.svg' alt='Mute' id='muteIcon' style='display: none;' />
+                    </button>
+                </div>
+                <input type='range' id='volumeSlider' min='0' max='100' value='50'>
+            </div>
+        </div>
+
+    <script type='module' src="js/tabBar.js"></script>
+    <script type='module' src='js/musicControls.js'></script> 
+    <script type='module' src='js/timeSlider.js'></script>
+    <script type='module' src='js/volumeControl.js'></script>
+</body>
+</html>
