@@ -18,8 +18,12 @@ import SignUp from "./pages/signup";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const handleSignup = () => {
+    setIsLoggedIn(true); // Set logged-in state to true after signup
+  };
+
   const handleLogin = () => {
-    setIsLoggedIn(true);
+    setIsLoggedIn(true); // Set logged-in state to true after login
   };
 
   return (
@@ -43,7 +47,10 @@ function App() {
               path="/login"
               element={<LoginPage onLogin={handleLogin} />}
             />
-            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/signup"
+              element={<SignUp onSignup={handleSignup} />}
+            />
             <Route path="*" element={<Navigate to="/login" />} />
           </Routes>
         )}
