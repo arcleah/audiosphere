@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import sabrina from "../assets/sabrina.svg";
+import frank from "../assets/frank.svg";
+import kanye from "../assets/kanye.svg";
+import SZA from "../assets/sza.svg";
+import jackie from "../assets/jackie.svg";
 
 const HomePage = () => {
+  const [likedPosts, setLikedPosts] = useState({}); // Track liked posts by id
+
+  const handleLike = (postId) => {
+    setLikedPosts((prevLikedPosts) => ({
+      ...prevLikedPosts,
+      [postId]: !prevLikedPosts[postId], // Toggle like state
+    }));
+  };
+
   const posts = [
     {
       id: 1,
@@ -45,31 +59,49 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8">
+    <div className="max-w-5xl mx-auto px-4 py-2">
       <div className="space-y-6">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="bg-[#7776B3] rounded-lg p-6 flex items-start gap-6 shadow-lg"
+            className="group bg-[#7776B3] rounded-lg p-6 flex items-start gap-6 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl"
           >
             {/* Profile Picture and Play Button */}
             <div className="relative w-20 h-20 flex-shrink-0">
               <img
-                src="https://via.placeholder.com/150"
+                src={
+                  post.artist === "Sean Rivers"
+                    ? frank
+                    : post.artist === "SZA"
+                    ? SZA
+                    : post.artist === "Sabrina Carpenter"
+                    ? sabrina
+                    : post.artist === "Kanye West"
+                    ? kanye
+                    : jackie
+                }
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover"
               />
               <button
-                className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-full hover:bg-black/40 transition duration-300"
+                className="absolute inset-0 flex items-center justify-center bg-transparent hover:bg-black/40 hover:bg-opacity-40 rounded-full transition duration-300 z-10 p-2"
                 aria-label="Play"
               >
-                <div className="w-0 h-0 border-t-8 border-t-transparent border-l-12 border-l-white border-b-8 border-b-transparent ml-1" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="w-6 h-6 text-white"
+                >
+                  <path d="M5 3l15 9-15 9V3z" />
+                </svg>
               </button>
             </div>
 
             {/* Post Content */}
             <div className="flex-1 min-w-0">
-              {/* User Info and Date */}
               <div className="flex items-center justify-between mb-3">
                 <span className="font-semibold text-white text-sm">
                   {post.username}
@@ -77,23 +109,24 @@ const HomePage = () => {
                 <span className="text-xs text-gray-300">{post.date}</span>
               </div>
 
-              {/* Post Text */}
               {post.content && (
                 <p className="text-sm text-white mb-4 break-words">
                   {post.content}
                 </p>
               )}
 
-              {/* Icons and Song Info */}
               <div className="flex items-center gap-5 text-sm text-gray-300">
                 {/* Like Button */}
                 <button
-                  className="hover:text-red-500 transition duration-300"
+                  className={`transition duration-300 ${
+                    likedPosts[post.id] ? "text-red-500" : "text-gray-300"
+                  }`}
+                  onClick={() => handleLike(post.id)} // Toggle like state on click
                   aria-label="Like"
                 >
                   <svg
                     className="w-6 h-6"
-                    fill="none"
+                    fill={likedPosts[post.id] ? "red" : "none"} // Change color to red when liked
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
@@ -102,7 +135,7 @@ const HomePage = () => {
                   </svg>
                 </button>
 
-                {/* Comment Button */}
+                {/* Other Post Actions */}
                 <button
                   className="hover:text-blue-500 transition duration-300"
                   aria-label="Comment"
@@ -118,7 +151,6 @@ const HomePage = () => {
                   </svg>
                 </button>
 
-                {/* Music Button */}
                 {post.song && (
                   <button
                     className="hover:text-green-500 transition duration-300"
@@ -138,10 +170,9 @@ const HomePage = () => {
                   </button>
                 )}
 
-                {/* Song and Artist Info */}
                 {post.song && (
-                  <div className="text-white">
-                    <span className="font-medium">{post.song}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium">{post.song}</span>
                     {post.artist && (
                       <span className="text-gray-300"> • {post.artist}</span>
                     )}
