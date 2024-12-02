@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import InputField from "./inputfield";
 import Notification from "./popupmessage";
 
-export default function SignUp() {
+export default function SignUp({ onSignup }) {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -32,13 +32,23 @@ export default function SignUp() {
       return;
     }
 
-    // Additional validation logic (e.g., password match) can be added here
-    navigate("/create-profile"); // Redirect after successful validation
+    // Call onSignup to set the logged-in state in App.jsx
+    onSignup();
+
+    // Navigate to the profile page after successful signup
+    navigate("/profile");
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+    <div className="flex justify-center items-center min-h-screen bg-[#19182D]">
+      {/* AudioSphere logo text */}
+      <div className="absolute top-6 left-6 text-[#E2BBE9] text-3xl font-bold">
+        AudioSphere
+      </div>
+
+      {/* Sign Up form container */}
+      <div className="w-full max-w-md p-6 bg-[#9B86BD] rounded-lg shadow-lg">
+        {/* Notification for empty fields */}
         {showNotification && (
           <Notification
             message="Please fill out all fields!"
@@ -47,8 +57,11 @@ export default function SignUp() {
           />
         )}
 
+        {/* Sign Up form */}
         <form className="space-y-6" onSubmit={handleSignup}>
-          <h2 className="text-2xl font-bold text-center">Sign Up</h2>
+          <h2 className="text-2xl font-bold text-white text-center">
+            Sign Up to AudioSphere
+          </h2>
 
           <InputField
             label="Email"
@@ -81,11 +94,22 @@ export default function SignUp() {
 
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            className="w-full bg-[#5A639C] text-white py-2 rounded-lg hover:bg-[#9B86BD] transition duration-300"
           >
             Sign Up
           </button>
         </form>
+
+        {/* Link to log in if user already has an account */}
+        <p className="text-center text-white mt-4">
+          Already have an account?{" "}
+          <a
+            href="/login"
+            className="text-white font-bold underline hover:bg-[#7776B3] transition duration-300"
+          >
+            Log in here
+          </a>
+        </p>
       </div>
     </div>
   );
