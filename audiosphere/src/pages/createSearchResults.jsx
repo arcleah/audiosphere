@@ -102,7 +102,7 @@ const CreateSearchResults = ({ selectedSong, searchQuery, onBack, onSearchQueryC
   };
 
   return (
-    <div className="search-results-container relative">
+    <div style={{ display: "flex", minHeight: "100vh", background: "#5A639C", color: "white" }}>
       <div className="absolute left-[500px] top-[100px] w-[732px] h-[474px] rounded-[25px] bg-[#2F2C50]">
         <div className="absolute top-0 left-0 w-full h-[60px] bg-[#19182D] rounded-t-[25px] flex items-center justify-between px-4">
           <button 
@@ -167,9 +167,12 @@ const CreateSearchResults = ({ selectedSong, searchQuery, onBack, onSearchQueryC
                 <p className="text-[#2F2C50] font-bold ml-[160px]">Great choice!</p>
                 <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to create a post.</p>
               </div>
-              <button onClick={handlePopupClose}>
-                <img src="/assets/icons/x icon.svg" alt="Close" className="w-10 h-5 mr-[30px]" />
-              </button>
+              <button 
+                  onClick={handlePopupClose} 
+                  className="border border-[#2F2C50] text-[#2F2C50] w-[20px] h-[20px] mr-3 mb-14 rounded-full text-[7px] font-bold flex items-center justify-center relative hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+                >
+                  X
+                </button>
             </div>
           </>
         )}

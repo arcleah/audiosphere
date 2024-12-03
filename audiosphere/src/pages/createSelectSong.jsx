@@ -71,9 +71,12 @@ const CreateSelectSong = ({ onSongSelect, onSearchQueryChange }) => {
                 <p className="text-[#2F2C50] font-bold ml-[160px]">Great choice!</p>
                 <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to create a post.</p>
               </div>
-              <button onClick={handlePopupClose}>
-                <img src="/assets/icons/x icon.svg" alt="Close" className="w-10 h-5 mr-[30px]" />
-              </button>
+              <button 
+                  onClick={handlePopupClose} 
+                  className="border border-[#2F2C50] text-[#2F2C50] w-[20px] h-[20px] mr-3 mb-14 rounded-[25px] text-[7px] font-bold flex items-center justify-center relative hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+                >
+                  X
+                </button>
             </div>
           </>
         )}
