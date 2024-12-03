@@ -1,0 +1,28 @@
+@keyframes post-entry {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-post-entry {
+  animation: post-entry 0.5s ease-in-out;
+}
+
+/* Hide the scrollbar but keep the scroll functionality */
+.scrollbar-hidden {
+  overflow-y: scroll; /* Ensure scrollability */
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome, Safari, and other WebKit browsers */
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* Hides scrollbar in IE 10+ */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+}
