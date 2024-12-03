@@ -98,12 +98,22 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
     return (
         <div className="relative">
             <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
+                {/*header*/}
                 <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
+                    {/*back button*/}
                     <button 
                         onClick={onBack} 
                         className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
                     >
                         <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
+                    </button>
+
+                    {/* Add Song Button */}
+                    <button 
+                        onClick={handleAddSongClick} 
+                        className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
+                    >
+                        <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
                     </button>
 
                     {/* Playlist Cover */}
@@ -142,8 +152,8 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                     {playlist.songs.length} songs | {minutes} min {seconds} sec 
                 </div>
 
-                {/* Sorting Dropdown */}
                 <div className="flex items-center ml-4 mt-4">
+                    {/* Sorting Dropdown */}
                     <select value={sortBy} onChange={handleSortChange} className="absolute left-[280px] top-[165px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
                         <option value="">Sort By</option>
                         <option value="title">Title: A-Z</option>
@@ -152,7 +162,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                         <option value="added">Order Added</option>
                     </select>
 
-                    <h1 className="absolute left-[590px] top-[165px] text-[55px] text-[16px] text-[#E2BBE9]">|</h1>
+                    <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
 
                     {/* Searching Functionality */}
                     <div className="absolute top-[143px] left-[560px] flex items-center justify-center relative">
@@ -171,8 +181,8 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     className="w-[180px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px]
-                               placeholder:text-[#E2BBE9]
-                               pl-8 mb-6  opacity-85 absolute ml-[190px]"
+                                                placeholder:text-[#E2BBE9]
+                                                pl-8 mb-8  opacity-85 absolute ml-[190px]"
                                     style={{ outline: 'none' }} // Inline style to remove outline
                                 />
                                 <button 
@@ -248,7 +258,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-[120px] focus:outline-none flex justify-between items-center z-50">
                     <div className="flex flex-col items-start justify-center text-center">
                     <p className="text-[#2F2C50] font-bold ml-[160px]">We're sorry!</p>
-                    <p className="text-[#2F2C50]">Unfortunately, this function is not yet available for existing playlists.</p>
+                    <p className="text-[#2F2C50]">Unfortunately, the feature to add songs is currently not available for existing playlists.</p>
                     </div>
                     <button 
                     onClick={closePopup} 
@@ -287,7 +297,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                                 onClick={closeConfirmRemovePopup}
                                 className="border border-[#2F2C50] text-[#2F2C50] px-4 py-2 rounded-[15px] hover:bg-[#2F2C50] hover:text-white transition duration-200"
                             >
-                                Cancel
+                                Keep
                             </button>
                         </div>
                         </div>

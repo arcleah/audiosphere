@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const PlaylistSearchSong = ({ onBack, onSearchQueryChange, setCurrentScreen, currentPlaylistName, setCurrentPlaylistName, onSavePlaylist }) => {
+const PlaylistSearchSong = ({ onBack, onSearchQueryChange, onAddSong, setCurrentScreen, currentPlaylistName, setCurrentPlaylistName, onSavePlaylist }) => {
     const [inputValue, setInputValue] = useState(''); // Local state for input
     const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
     const [isEditing, setIsEditing] = useState(false); // State for editing mode
@@ -54,64 +54,70 @@ const PlaylistSearchSong = ({ onBack, onSearchQueryChange, setCurrentScreen, cur
     };
 
     return (
-        <div className="relative">
-          <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
-            {/* Header section */} 
-            <div className="absolute top-0 left-0 w-full h-[270px] bg-[#19182D] rounded-t-[25px]">
-              <button 
-                onClick={onBack} 
-                className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
-              >
-                <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
-              </button>
+<div className="relative">
+            <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
+            {/* Header section */}
+            <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
+                <button 
+                    onClick={onBack} 
+                    className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+                >
+                    <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
+                </button>
 
+                {/* Add Song Button */}
+                                <button 
+                    onClick={onAddSong} 
+                    className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
+                >
+                    <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
+                </button>
+                    
+                {/* Playlist cover */}
+                <div className="absolute top-[25px] left-[110px] w-[150px] h-[150px] rounded-full bg-[#9B86BD] overflow-hidden flex items-center justify-center">
+                    {/* Conditionally render the icon based on editing state */}
+                    <img 
+                        src={isEditing ? "/assets/icons/plus-large-svgrepo-com copy.svg" : "/assets/icons/music-svgrepo-com.svg"} 
+                        alt="Add Song" 
+                        style={{ width: '90px', height: '90px' }} // Set desired size here
+                    />
+                </div>
 
-            {/* Background container for icon */}
-            <div className="absolute top-[25px] left-[110px] w-[216px] h-[216px] rounded-full bg-[#9B86BD] overflow-hidden flex items-center justify-center">
-                {/* Conditionally render the icon based on editing state */}
-                <img 
-                    src={isEditing ? "/assets/icons/plus-large-svgrepo-com copy.svg" : "/assets/icons/music-svgrepo-com.svg"} 
-                    alt="Add Song" 
-                    style={{ width: '130px', height: '130px' }} // Set desired size here
-                />
-            </div>
+                {/* Playlist Name Section */}
+                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+                    {isEditing ? (
+                        <input 
+                            type="text"
+                            value={playlistName}
+                            onChange={(e) => setPlaylistName(e.target.value)}
+                            className="pl-2 bg-transparent border border-[#E2BBE9] text-[40px] rounded-[25px]"
+                        />
+                    ) : (
+                        <h1 className="pl-2 pb-1 text-[40px] font-bold">{playlistName}</h1>
+                    )}
+                </div>
 
-            {/*Main Save button*/}
-            <button 
-                onClick={onSavePlaylist}
-                className="absolute right-4 top-4 w-[60px] h-[30px] rounded-full bg-[#2F2C50] text-[#E2BBE9] font-medium 
-                flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
-            >Save</button>
+                {/* Edit button */}
+                {isEditing ? (
+                    <button onClick={handleSaveClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
+                    bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
+                    hover:filter hover:brightness-125">Save</button>
+                ) : (
+                    <button onClick={handleEditClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
+                    bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
+                    hover:filter hover:brightness-125">Edit</button>
+                )}
 
-            {/* Display Current Playlist Name */}
-            <div className="absolute left-[360px] top-[55px] text-[55px] font-bold text-[#E2BBE9]">
-                        {isEditing ? (
-                            <input 
-                                type="text"
-                                value={playlistName}
-                                onChange={(e) => setPlaylistName(e.target.value)}
-                                className="pl-2 bg-transparent border border-[#E2BBE9] text-[55px] rounded-[25px]"
-                            />
-                        ) : (
-                            <h1 className="pl-2 pb-1 text-[55px] font-bold">{playlistName}</h1>
-                        )}
-                        </div>
-
-                        {/* Edit button */}
-                        {isEditing ? (
-                            <button onClick={handleSaveClick} className="absolute left-[365px] top-[145px] w-[60px] h-[30px] rounded-full 
-                            bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
-                            hover:filter hover:brightness-125">Save</button>
-                        ) : (
-                            <button onClick={handleEditClick} className="absolute left-[365px] top-[145px] w-[60px] h-[30px] rounded-full 
-                            bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
-                            hover:filter hover:brightness-125">Edit</button>
-                        )}
+                {/*Main save button*/}
+                <button 
+                    onClick={onSavePlaylist}
+                    className="absolute right-4 top-4 w-[60px] h-[30px] rounded-full bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+                >Save</button>
             </div>
         </div>
 
         {/* Search box styled like a button */}
-        <div className="absolute top-[350px] absolute left-[370px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
+        <div className="absolute top-[282px] absolute left-[370px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
           <div className="relative w-full">
             <form onSubmit={handleSearch}> {/* Use form to handle submit */}
               <div 

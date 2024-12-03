@@ -66,73 +66,78 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
     return (
         <div className="relative">
             <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
-                {/* Header section */}
-                <div className="absolute top-0 left-0 w-full h-[270px] bg-[#19182D] rounded-t-[25px]">
-                    <button 
-                        onClick={onBack} 
-                        className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
-                    >
-                        <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
-                    </button>
+            {/* Header section */}
+            <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
+                <button 
+                    onClick={onBack} 
+                    className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+                >
+                    <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
+                </button>
+
+                {/* Add Song Button */}
+                <button 
+                    onClick={onAddSong} 
+                    className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
+                >
+                    <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
+                </button>
                     
-                    {/* Background container for icon */}
-                    <div className="absolute top-[25px] left-[110px] w-[216px] h-[216px] rounded-full bg-[#9B86BD] overflow-hidden flex items-center justify-center">
-                        {/* Conditionally render the icon based on editing state */}
-                        <img 
-                            src={isEditing ? "/assets/icons/plus-large-svgrepo-com copy.svg" : "/assets/icons/music-svgrepo-com.svg"} 
-                            alt="Add Song" 
-                            style={{ width: '130px', height: '130px' }} // Set desired size here
+                {/* Playlist cover */}
+                <div className="absolute top-[25px] left-[110px] w-[150px] h-[150px] rounded-full bg-[#9B86BD] overflow-hidden flex items-center justify-center">
+                    {/* Conditionally render the icon based on editing state */}
+                    <img 
+                        src={isEditing ? "/assets/icons/plus-large-svgrepo-com copy.svg" : "/assets/icons/music-svgrepo-com.svg"} 
+                        alt="Add Song" 
+                        style={{ width: '90px', height: '90px' }} // Set desired size here
+                    />
+                </div>
+
+                {/* Playlist Name Section */}
+                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+                    {isEditing ? (
+                        <input 
+                            type="text"
+                            value={playlistName}
+                            onChange={(e) => setPlaylistName(e.target.value)}
+                            className="pl-2 bg-transparent border border-[#E2BBE9] text-[40px] rounded-[25px]"
                         />
-                    </div>
+                    ) : (
+                        <h1 className="pl-2 pb-1 text-[40px] font-bold">{playlistName}</h1>
+                    )}
+                </div>
 
-                    {/* Playlist Name Section */}
-                    <div className="absolute left-[360px] top-[55px] text-[55px] font-bold text-[#E2BBE9]">
-                        {isEditing ? (
-                            <input 
-                                type="text"
-                                value={playlistName}
-                                onChange={(e) => setPlaylistName(e.target.value)}
-                                className="pl-2 bg-transparent border border-[#E2BBE9] text-[55px] rounded-[25px]"
-                            />
-                        ) : (
-                            <h1 className="pl-2 pb-1 text-[55px] font-bold">{playlistName}</h1>
-                        )}
-                        </div>
+                {/* Edit button */}
+                {isEditing ? (
+                    <button onClick={handleSaveClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
+                    bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
+                    hover:filter hover:brightness-125">Save</button>
+                ) : (
+                    <button onClick={handleEditClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
+                    bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
+                    hover:filter hover:brightness-125">Edit</button>
+                )}
 
-                        {/* Edit button */}
-                        {isEditing ? (
-                            <button onClick={handleSaveClick} className="absolute left-[365px] top-[145px] w-[60px] h-[30px] rounded-full 
-                            bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
-                            hover:filter hover:brightness-125">Save</button>
-                        ) : (
-                            <button onClick={handleEditClick} className="absolute left-[365px] top-[145px] w-[60px] h-[30px] rounded-full 
-                            bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
-                            hover:filter hover:brightness-125">Edit</button>
-                        )}
-
-                    {/*Main save button*/}
-                    <button 
-                        onClick={onSavePlaylist}
-                        className="absolute right-4 top-4 w-[60px] h-[30px] rounded-full bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
-                    >
-                        Save
-                    </button>
+                {/*Main save button*/}
+                <button 
+                    onClick={onSavePlaylist}
+                    className="absolute right-4 top-4 w-[60px] h-[30px] rounded-full bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+                >Save</button>
 
                     
-                    {/* Playlist info in header */}
-                    {addedSongs.length > 0 && (
-                        <div className="absolute left-[360px] top-[223px] text-[#E2BBE9]">
-                            {addedSongs.length} songs | {minutes} min {seconds} sec |
-
-
-                        </div>
-                    )}
+                {/* Playlist info in header */}
+                {addedSongs.length > 0 && (
+                    <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
+                        {addedSongs.length} songs | {minutes} min {seconds} sec |
+                    </div>
+                )}
+            
 
         {/*searching through playlist stuff*/}
         <div className="flex items-center ml-4">
             {/* Dropdown menu for sorting */}
             {addedSongs.length > 0 && (
-            <select value={sortBy} onChange={handleSortChange} className="absolute left-[350px] top-[225px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
+            <select value={sortBy} onChange={handleSortChange} className="absolute left-[280px] top-[165px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
                 <option value="">Sort By</option>
                 <option value="title">Title: A-Z</option>
                 <option value="artist">Artist: A-Z</option>
@@ -142,40 +147,41 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
             )}
 
             {addedSongs.length > 0 && (
-                <h1 className="absolute left-[663px] top-[224px] text-[55px] text-[16px] text-[#E2BBE9]">|</h1>
+                <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
             )}
 
             {/* Search functionality */}
             {addedSongs.length > 0 && (
-            <div className="absolute top-[220px] left-[630px] flex items-center justify-center relative">
-              {!isSearching ? (
-                <button 
-                  onClick={() => setIsSearching(true)} 
-                  className="p-2 ml-[28px] mb-2 mt-1 rounded-full bg-[#2F2C50] opacity-85 flex items-center"
-                >
-                  <img src="/assets/icons/search-svgrepo-com copy 2.svg" alt="Search" className="w-3 h-3" />
-                </button>
-              ) : (
-                <>
-                  <input 
-                    type="text" 
-                    placeholder="Search for a song..." 
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-[180px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px]
-                               placeholder:text-[#E2BBE9]
-                               pl-8 mb-8  opacity-85 absolute ml-[190px]"
-                    style={{ outline: 'none' }} // Inline style to remove outline
-                  />
-                  <button 
-                    onClick={() => {
-                      setIsSearching(false);
-                      setSearchQuery('');
-                    }}
-                    className="ml-10 mb-4 p-3 bg-transparent text-[#9B86BD] text-[12px] flex items-center justify-center rounded-full opacity-85 transition duration-300 ease-in-out hover:filter hover:brightness-300"
-                  >
-                   <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-5 h-5 -ml-[2.5px] mb-2" />
-                  </button>
+                <div className="absolute top-[157px] left-[560px] flex items-center justify-center relative">
+                {!isSearching ? (
+                    <button 
+                    onClick={() => setIsSearching(true)} 
+                    className="p-2 ml-[28px] mb-2 mt-1 rounded-full bg-[#2F2C50] opacity-85 flex items-center"
+                    >
+                    <img src="/assets/icons/search-svgrepo-com copy 2.svg" alt="Search" className="w-4 h-4" />
+                    </button>
+                ) : (
+                    <>
+                    <input 
+                        type="text" 
+                        placeholder="Search your playlist..." 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-[180px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px]
+                                placeholder:text-[#E2BBE9]
+                                pl-8 mb-8  opacity-85 absolute ml-[190px]"
+                        style={{ outline: 'none' }} // Inline style to remove outline
+                    />
+                    <button 
+                        onClick={() => {
+                        setIsSearching(false);
+                        setSearchQuery('');
+                        }}
+                        className="ml-10 mb-4 p-3 bg-transparent text-[#9B86BD] text-[12px]
+                                    flex items-center justify-center rounded-full opacity-85 transition duration-300 ease-in-out hover:filter hover:brightness-300"
+                    >
+                    <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-5 h-5 -ml-[2.5px] mb-2" />
+                    </button>
                 </>
               )}
             </div>
@@ -185,9 +191,9 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
 
           {/* Fixed bar with labels */}
           {addedSongs.length > 0 && (
-          <div className="absolute top-[270px] left-0 w-full h-[38px] bg-[#2F2C50] z-10 flex items-center px-4">
+          <div className="absolute top-[200px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
             <div className="w-[97px]" />
-            <div className="ml-16 mt-4 flex-grow flex">
+            <div className="ml-16 mt-6 flex-grow flex">
               <span className="text-[#E2BBE9]  font-medium ml-[10px] w-[220px]">Title</span>
               <span className="text-[#E2BBE9]  font-medium w-[290px]">Artist</span>
               <span className="text-[#E2BBE9]  font-medium w-1/3">Time</span>
@@ -197,8 +203,8 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
           )}
 
           {/* Content area */}
-          <div className="absolute top-[308px] left-0 right-0 bottom-0 overflow-y-auto max-h-[310px]">
-            <div className="p-4 ml-5">
+          <div className="absolute top-[240px] left-0 right-0 bottom-0 overflow-y-auto max-h-[350px] pb-[20px]">
+             <div className="p-4 ml-5">
               {sortedSongs.map((song) => (
                 <div key={song.instanceId} className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[980px] h-[59px] mb-12">
                   <img src={song.cover} alt={`${song.title} Cover`} className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]" />

@@ -299,7 +299,8 @@ function PlaylistPage() {
       )}
       {currentScreen === 'searchSong' && (
         <PlaylistSearchSong 
-          onBack={handleBack} 
+          onBack={handleBack}
+          onAddSong={handleAddSong} 
           onSearchQueryChange={handleSearchQueryChange} 
           setCurrentScreen={setCurrentScreen}
           currentPlaylistName={currentPlaylistName} // Pass current playlist name
@@ -312,6 +313,7 @@ function PlaylistPage() {
         <PlaylistSearchResults 
           onBack={handleBack}
           searchQuery={searchQuery}
+          onAddSong={handleAddSong}
           setSearchQuery={setSearchQuery}
           setCurrentScreen={setCurrentScreen}
           addSongToPlaylist={addSongToPlaylist}
