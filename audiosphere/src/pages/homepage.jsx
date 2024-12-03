@@ -17,7 +17,6 @@ const HomePage = () => {
   };
 
   const handlePlayPause = (postId) => {
-    // If the same post is clicked, toggle play/pause
     setPlayingPostId((prevPlayingPostId) =>
       prevPlayingPostId === postId ? null : postId
     );
@@ -63,22 +62,6 @@ const HomePage = () => {
       content: "My grandkids recommended this to me! I think its groovy!",
       song: "Rainy Tapestry",
       artist: "Lamp",
-    },
-    {
-      id: 6,
-      username: "@randomuser6",
-      date: "Nov 1, 2024",
-      content: "Check out this amazing track!",
-      song: "Track 6",
-      artist: "Artist 6",
-    },
-    {
-      id: 7,
-      username: "@randomuser7",
-      date: "Nov 2, 2024",
-      content: "Just discovered this song and love it!",
-      song: "Track 7",
-      artist: "Artist 7",
     },
   ];
 
@@ -175,6 +158,52 @@ const HomePage = () => {
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                   </svg>
                 </button>
+
+                {/* Comment Button */}
+                <button
+                  className="hover:text-blue-500 transition duration-300 transform hover:scale-110"
+                  aria-label="Comment"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M21 15a2 2 0 002-2V5a2 2 0 00-2-2H3a2 2 0 00-2 2v10a2 2 0 002 2h14l4 4z" />
+                  </svg>
+                </button>
+
+                {/* Music Button */}
+                {post.song && (
+                  <button
+                    className="hover:text-green-500 transition duration-300 transform hover:scale-110"
+                    aria-label="Music"
+                  >
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9 18V5l12-2v13" />
+                      <circle cx="6" cy="18" r="3" />
+                      <circle cx="18" cy="16" r="3" />
+                    </svg>
+                  </button>
+                )}
+
+                {/* Song & Artist Info */}
+                {post.song && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-medium">{post.song}</span>
+                    {post.artist && (
+                      <span className="text-gray-300"> • {post.artist}</span>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
