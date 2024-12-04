@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AlexaProfile from "./alexaProfile"; // Import Alexa's profile component
 import heart from "../assets/icons/heart-svgrepo-com.svg"; // Import heart icon
 import plus from "../assets/icons/plus-large-svgrepo-com.svg"; // Import plus icon
 import searchIcon from "../assets/icons/search-svgrepo-com.svg"; // Import search icon
@@ -8,9 +9,12 @@ import playlistpic2 from "../assets/playlist2-pic.jpg";
 import playlistpic3 from "../assets/playlist3-pic.jpg";
 import play from "../assets/icons/play-svgrepo-com.svg";
 
+
 function SearchPage() {
   const [searchQuery, setSearchQuery] = useState(''); // State for search input
   const [showResults, setShowResults] = useState(false); // State to toggle result display
+  const [viewAlexaProfile, setViewAlexaProfile] = useState(false); // State to show Alexa's profile
+
 
   const playlists = [
     { name: "Dreamy", pic: playlistpic1 },
@@ -47,6 +51,11 @@ function SearchPage() {
     { name: 'Electronic', color: 'bg-orange-200' },
     { name: 'Country', color: 'bg-red-200' },
   ];
+  
+  if (viewAlexaProfile) {
+    return <AlexaProfile onBack={() => setViewAlexaProfile(false)} />; // Pass the onBack function
+  }
+
 
   return (
     <div className="fixed left-[340px] bg-[#2F2C50] rounded-lg overflow-y-auto w-70% h-[80%] p-4">
@@ -141,11 +150,13 @@ function SearchPage() {
           {/* Hardcoded Results for "Alexa Miller" */}
           {showResults && (
             <>
-              {/* Search Result */}
               <h2 className="text-white mt-8 text-xl">Search result</h2>
               <div className="grid grid-cols-2 gap-6 mt-4">
                 {/* Profile Box */}
-                <div className="bg-[#19182D] rounded-lg p-4 flex items-center">
+                <div
+                  className="bg-[#19182D] rounded-lg p-4 flex items-center cursor-pointer"
+                  onClick={() => setViewAlexaProfile(true)} // Set state to view Alexa's profile
+                >
                   <img
                     src={alexa}
                     alt="Alexa Miller"
