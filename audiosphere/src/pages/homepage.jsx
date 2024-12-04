@@ -1,4 +1,3 @@
-// HomePage.js
 import React, { useState } from "react";
 import sabrina from "../assets/sabrina.svg";
 import frank from "../assets/frank.svg";
@@ -6,12 +5,15 @@ import kanye from "../assets/kanye.svg";
 import SZA from "../assets/sza.svg";
 import jackie from "../assets/jackie.svg";
 import CommentsPopup from "./commentsPopup";
+import MusicPopup from "./musicPopup"; // Import the MusicPopup component
+import mira from "../assets/mira.svg";
 
 const HomePage = () => {
   const [likedPosts, setLikedPosts] = useState({});
   const [playingPostId, setPlayingPostId] = useState(null);
-  const [isCommentPopupVisible, setIsCommentPopupVisible] = useState(false); // State to manage visibility of comment popup
-  const [currentPostId, setCurrentPostId] = useState(null); // Store the current postId for comments
+  const [isCommentPopupVisible, setIsCommentPopupVisible] = useState(false);
+  const [currentPost, setCurrentPost] = useState(null); // Store the current post data
+  const [isMusicPopupVisible, setIsMusicPopupVisible] = useState(false); // State for controlling music popup
 
   const handleLike = (postId) => {
     setLikedPosts((prevLikedPosts) => ({
@@ -26,14 +28,20 @@ const HomePage = () => {
     );
   };
 
-  const handleCommentClick = (postId) => {
-    setCurrentPostId(postId); // Set the current postId when the comment button is clicked
+  const handleCommentClick = (post) => {
+    setCurrentPost(post); // Set the current post data
     setIsCommentPopupVisible(true); // Show the comment popup
+  };
+
+  const handleMusicClick = (post) => {
+    setCurrentPost(post); // Set the current post data
+    setIsMusicPopupVisible(true); // Show the music popup
   };
 
   const handleClosePopup = () => {
     setIsCommentPopupVisible(false); // Close the comment popup
-    setCurrentPostId(null); // Reset the postId
+    setCurrentPost(null); // Reset the current post data
+    setIsMusicPopupVisible(false); // Close the music popup
   };
 
   const posts = [
@@ -81,14 +89,22 @@ const HomePage = () => {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-2">
+      {/* Mira's profile image positioned at the top right corner */}
+      <div className="absolute top-4 right-4">
+        <img
+          src={mira}
+          alt="Mira's Profile"
+          className="w-12 h-12 rounded-full"
+        />
+      </div>
+
       <div className="space-y-6">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="group bg-[#7776B3] rounded-full p-6 flex items-center gap-6 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196]"
+            className="group bg-[#7776B3] rounded-full p-4 flex items-center gap-4 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196]"
           >
-            {/* Profile Picture and Play Button */}
-            <div className="relative w-20 h-20 flex-shrink-0 group-hover:scale-105 transition duration-300">
+            <div className="relative w-24 h-24 flex-shrink-0 group-hover:scale-105 transition duration-300">
               <img
                 src={
                   post.artist === "Frank Ocean"
@@ -105,8 +121,7 @@ const HomePage = () => {
                 className="w-full h-full rounded-full object-cover transition duration-300 transform group-hover:scale-110 group-hover:shadow-lg"
               />
               <button
-                className="absolute inset-0 flex items-center justify-center bg-transparent hover:bg-black/40 hover:bg-opacity-40 rounded-full transition duration-300 z-10 p-2"
-                aria-label={playingPostId === post.id ? "Pause" : "Play"}
+                className="absolute inset-0 flex items-center justify-center bg-transparent hover:bg-black/40 hover:bg-opacity-40 rounded-full transition duration-300 z-10"
                 onClick={() => handlePlayPause(post.id)}
               >
                 {playingPostId === post.id ? (
@@ -136,8 +151,7 @@ const HomePage = () => {
               </button>
             </div>
 
-            {/* Post Content */}
-            <div className="flex-1 min-w-0 ml-4">
+            <div className="flex-1 min-w-0 ml-2">
               <div className="flex items-center justify-between mb-3">
                 <span className="font-semibold text-white text-sm">
                   {post.username}
@@ -152,7 +166,6 @@ const HomePage = () => {
               )}
 
               <div className="flex items-center gap-5 text-sm text-gray-300">
-                {/* Like Button */}
                 <button
                   className={`transition duration-300 ${
                     likedPosts[post.id]
@@ -160,7 +173,6 @@ const HomePage = () => {
                       : "text-gray-300"
                   } hover:text-red-500 hover:scale-110`}
                   onClick={() => handleLike(post.id)}
-                  aria-label="Like"
                 >
                   <svg
                     className="w-6 h-6"
@@ -173,11 +185,9 @@ const HomePage = () => {
                   </svg>
                 </button>
 
-                {/* Comment Button */}
                 <button
                   className="hover:text-blue-500 transition duration-300 transform hover:scale-110"
-                  onClick={() => handleCommentClick(post.id)} // Show comment popup on click
-                  aria-label="Comment"
+                  onClick={() => handleCommentClick(post)}
                 >
                   <svg
                     className="w-6 h-6"
@@ -190,32 +200,28 @@ const HomePage = () => {
                   </svg>
                 </button>
 
-                {/* Music Button */}
-                {post.song && (
-                  <button
-                    className="hover:text-green-500 transition duration-300 transform hover:scale-110"
-                    aria-label="Music"
+                <button
+                  className="hover:text-green-500 transition duration-300 transform hover:scale-110"
+                  onClick={() => handleMusicClick(post)} // Show Music Popup
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
                   >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M9 18V5l12-2v13" />
-                      <circle cx="6" cy="18" r="3" />
-                      <circle cx="18" cy="16" r="3" />
-                    </svg>
-                  </button>
-                )}
+                    <path d="M9 18V5l12-2v13" />
+                    <circle cx="6" cy="18" r="3" />
+                    <circle cx="18" cy="16" r="3" />
+                  </svg>
+                </button>
 
-                {/* Song & Artist Info */}
                 {post.song && (
                   <div className="flex items-center gap-2">
                     <span className="text-white font-medium">{post.song}</span>
                     {post.artist && (
-                      <span className="text-gray-300"> • {post.artist}</span>
+                      <span className="text-gray-300">• {post.artist}</span>
                     )}
                   </div>
                 )}
@@ -226,7 +232,12 @@ const HomePage = () => {
 
         {/* Render Comments Popup */}
         {isCommentPopupVisible && (
-          <CommentsPopup postId={currentPostId} onClose={handleClosePopup} />
+          <CommentsPopup post={currentPost} onClose={handleClosePopup} />
+        )}
+
+        {/* Render Music Popup */}
+        {isMusicPopupVisible && (
+          <MusicPopup post={currentPost} onClose={handleClosePopup} />
         )}
       </div>
     </div>
