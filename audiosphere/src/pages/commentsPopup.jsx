@@ -20,6 +20,27 @@ const CommentsPopup = ({ post, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 flex justify-center items-center">
       <div className="bg-[#1D1B31] rounded-3xl w-[500px] p-6 shadow-2xl text-white">
+        {/* Custom Scrollbar Styles */}
+        <style>
+          {`
+            ::-webkit-scrollbar {
+              width: 8px;
+            }
+            ::-webkit-scrollbar-thumb {
+              background-color: #6B5DD3;
+              border-radius: 10px;
+              border: 2px solid #3A3955;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background-color: #584CC6;
+            }
+            ::-webkit-scrollbar-track {
+              background-color: #2A2945;
+              border-radius: 10px;
+            }
+          `}
+        </style>
+
         {/* Header Section */}
         <div className="relative flex items-center mb-4">
           {/* Back Button */}
@@ -92,17 +113,24 @@ const CommentsPopup = ({ post, onClose }) => {
         </div>
 
         {/* Comments Section */}
-        <div className="mt-6 space-y-4 bg-[#2A2945] rounded-xl p-4">
+        <div className="mt-6 space-y-4 bg-[#2A2945] rounded-xl p-4 max-h-[300px] overflow-y-auto">
           <h5 className="font-semibold mb-2">Comments</h5>
           {comments.map((comment, index) => (
             <div key={index} className="space-y-2">
               {/* Timestamp above the comment */}
-              <div className="text-xs text-gray-400">{comment.text}</div>
+              <div className="text-xs text-gray-400 text-right">
+                {comment.text}
+              </div>
 
               {/* Comment content */}
-              <div className="bg-[#3A3955] text-sm rounded-lg p-3">
-                <span className="font-medium text-white">{comment.user}:</span>
-                <p className="text-gray-300">{comment.content}</p>
+              <div className="bg-[#3A3955] text-sm rounded-lg p-3 flex justify-between items-center">
+                <div>
+                  <span className="font-medium text-white">
+                    {comment.user}:
+                  </span>
+                  <p className="text-gray-300">{comment.content}</p>
+                </div>
+                {/* No timestamp inside the comment box */}
               </div>
             </div>
           ))}
