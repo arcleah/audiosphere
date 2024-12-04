@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import sabrina from "../assets/sabrina.svg";
 
-const CommentsPopup = ({ postId, onClose }) => {
+const CommentsPopup = ({ post, onClose }) => {
   const [comments, setComments] = useState([
-    { user: "Alexa", text: "Just now", content: "Mid" },
+    { user: "Alexa", text: "2 mins ago", content: "Mid" },
   ]);
   const [newComment, setNewComment] = useState("");
 
@@ -44,16 +44,25 @@ const CommentsPopup = ({ postId, onClose }) => {
           </button>
 
           {/* Username */}
-          <span className="mx-auto font-semibold text-lg">@mira.hart</span>
+          <span className="mx-auto font-semibold text-lg">{post.username}</span>
 
           {/* Timestamp */}
           <span className="absolute right-0 text-sm text-gray-400">
-            Oct 30, 2024
+            {post.date}
           </span>
         </div>
 
+        {/* Original Post Content */}
+        <div className="bg-[#2A2945] p-4 rounded-xl mb-4">
+          <h5 className="font-semibold mb-2">Original Post</h5>
+          <div className="bg-[#3A3955] text-sm rounded-lg p-3">
+            <p className="font-medium text-white">{post.username}:</p>
+            <p className="text-gray-300">{post.content}</p>
+          </div>
+        </div>
+
         {/* Profile and Song Info */}
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center mb-6">
           <div className="rounded-full overflow-hidden w-24 h-24 mb-4">
             <img
               src={sabrina}
@@ -62,8 +71,10 @@ const CommentsPopup = ({ postId, onClose }) => {
             />
           </div>
           <div className="text-center">
-            <h4 className="text-lg font-semibold">Taste</h4>
-            <p className="text-sm text-gray-400">Sabrina Carpenter | 2:37</p>
+            <h4 className="text-lg font-semibold">{post.song}</h4>
+            <p className="text-sm text-gray-400">
+              {post.artist} | {post.duration}
+            </p>
           </div>
           <button className="mt-2 bg-[#6B5DD3] hover:bg-[#584CC6] text-white rounded-full px-4 py-2 flex items-center gap-2">
             <span>Play</span>
@@ -84,12 +95,15 @@ const CommentsPopup = ({ postId, onClose }) => {
         <div className="mt-6 space-y-4 bg-[#2A2945] rounded-xl p-4">
           <h5 className="font-semibold mb-2">Comments</h5>
           {comments.map((comment, index) => (
-            <div
-              key={index}
-              className="bg-[#3A3955] text-sm rounded-lg p-3 flex justify-between items-center"
-            >
-              <span className="font-medium text-white">{comment.user}:</span>
-              <p className="text-gray-300">{comment.content}</p>
+            <div key={index} className="space-y-2">
+              {/* Timestamp above the comment */}
+              <div className="text-xs text-gray-400">{comment.text}</div>
+
+              {/* Comment content */}
+              <div className="bg-[#3A3955] text-sm rounded-lg p-3">
+                <span className="font-medium text-white">{comment.user}:</span>
+                <p className="text-gray-300">{comment.content}</p>
+              </div>
             </div>
           ))}
         </div>

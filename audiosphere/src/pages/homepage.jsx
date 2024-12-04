@@ -152,11 +152,11 @@ const HomePage = () => {
             </div>
 
             <div className="flex-1 min-w-0 ml-2">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3 flex-shrink-0">
                 <span className="font-semibold text-white text-sm">
                   {post.username}
                 </span>
-                <span className="text-xs text-gray-300">{post.date}</span>
+                <span className="text-xs text-gray-300 ml-2">{post.date}</span>
               </div>
 
               {post.content && (
