@@ -1,18 +1,22 @@
+// HomePage.js
 import React, { useState } from "react";
 import sabrina from "../assets/sabrina.svg";
 import frank from "../assets/frank.svg";
 import kanye from "../assets/kanye.svg";
 import SZA from "../assets/sza.svg";
 import jackie from "../assets/jackie.svg";
+import CommentsPopup from "./commentsPopup";
 
 const HomePage = () => {
-  const [likedPosts, setLikedPosts] = useState({}); // Track liked posts by id
-  const [playingPostId, setPlayingPostId] = useState(null); // Track which post is playing
+  const [likedPosts, setLikedPosts] = useState({});
+  const [playingPostId, setPlayingPostId] = useState(null);
+  const [isCommentPopupVisible, setIsCommentPopupVisible] = useState(false); // State to manage visibility of comment popup
+  const [currentPostId, setCurrentPostId] = useState(null); // Store the current postId for comments
 
   const handleLike = (postId) => {
     setLikedPosts((prevLikedPosts) => ({
       ...prevLikedPosts,
-      [postId]: !prevLikedPosts[postId], // Toggle like state
+      [postId]: !prevLikedPosts[postId],
     }));
   };
 
@@ -22,14 +26,24 @@ const HomePage = () => {
     );
   };
 
+  const handleCommentClick = (postId) => {
+    setCurrentPostId(postId); // Set the current postId when the comment button is clicked
+    setIsCommentPopupVisible(true); // Show the comment popup
+  };
+
+  const handleClosePopup = () => {
+    setIsCommentPopupVisible(false); // Close the comment popup
+    setCurrentPostId(null); // Reset the postId
+  };
+
   const posts = [
     {
       id: 1,
-      username: "@theseanrivers",
+      username: "@thefrankocean",
       date: "Oct 28, 2024",
       content: "Check out my song!",
       song: "Seigfried",
-      artist: "Sean Rivers",
+      artist: "Frank Ocean",
     },
     {
       id: 2,
@@ -59,7 +73,7 @@ const HomePage = () => {
       id: 5,
       username: "@grandpadave",
       date: "Oct 30, 2024",
-      content: "My grandkids recommended this to me! I think its groovy!",
+      content: "My grandkids recommended this to me and I think its groovy!",
       song: "Rainy Tapestry",
       artist: "Lamp",
     },
@@ -71,13 +85,13 @@ const HomePage = () => {
         {posts.map((post) => (
           <div
             key={post.id}
-            className="group bg-[#7776B3] rounded-lg p-6 flex items-start gap-6 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196]"
+            className="group bg-[#7776B3] rounded-full p-6 flex items-center gap-6 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196]"
           >
             {/* Profile Picture and Play Button */}
             <div className="relative w-20 h-20 flex-shrink-0 group-hover:scale-105 transition duration-300">
               <img
                 src={
-                  post.artist === "Sean Rivers"
+                  post.artist === "Frank Ocean"
                     ? frank
                     : post.artist === "SZA"
                     ? SZA
@@ -123,7 +137,7 @@ const HomePage = () => {
             </div>
 
             {/* Post Content */}
-            <div className="flex-1 min-w-0">
+            <div className="flex-1 min-w-0 ml-4">
               <div className="flex items-center justify-between mb-3">
                 <span className="font-semibold text-white text-sm">
                   {post.username}
@@ -145,12 +159,12 @@ const HomePage = () => {
                       ? "text-red-500 scale-125"
                       : "text-gray-300"
                   } hover:text-red-500 hover:scale-110`}
-                  onClick={() => handleLike(post.id)} // Toggle like state on click
+                  onClick={() => handleLike(post.id)}
                   aria-label="Like"
                 >
                   <svg
                     className="w-6 h-6"
-                    fill={likedPosts[post.id] ? "red" : "none"} // Change color to red when liked
+                    fill={likedPosts[post.id] ? "red" : "none"}
                     stroke="currentColor"
                     strokeWidth="2"
                     viewBox="0 0 24 24"
@@ -162,6 +176,7 @@ const HomePage = () => {
                 {/* Comment Button */}
                 <button
                   className="hover:text-blue-500 transition duration-300 transform hover:scale-110"
+                  onClick={() => handleCommentClick(post.id)} // Show comment popup on click
                   aria-label="Comment"
                 >
                   <svg
@@ -208,6 +223,11 @@ const HomePage = () => {
             </div>
           </div>
         ))}
+
+        {/* Render Comments Popup */}
+        {isCommentPopupVisible && (
+          <CommentsPopup postId={currentPostId} onClose={handleClosePopup} />
+        )}
       </div>
     </div>
   );
