@@ -96,7 +96,7 @@ const CreateAddDescription = ({ selectedSong, onBack, origin }) => {
 
   return (
     <div className="relative">
-      <div className="absolute left-[500px] top-[100px] w-[732px] h-[474px] rounded-[25px] bg-[#2F2C50]">
+      <div className="absolute left-[250px] top-[90px] w-[732px] h-[474px] rounded-[25px] bg-[#2F2C50]">
         {/* Header section */}
         <div className="absolute top-0 left-0 w-full h-[60px] bg-[#19182D] rounded-t-[25px] flex items-center justify-between px-4">
           {/* Back button */}

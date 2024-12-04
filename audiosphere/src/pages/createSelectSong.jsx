@@ -34,7 +34,7 @@ const CreateSelectSong = ({ onSongSelect, onSearchQueryChange }) => {
   return (
     <div className="relative">
       {/* Main container */}
-      <div className="absolute left-[500px] top-[270px] w-[732px] h-[140px] rounded-[25px] bg-[#2F2C50]">
+      <div className="absolute left-[250px] top-[250px] w-[732px] h-[140px] rounded-[25px] bg-[#2F2C50]">
         {/* Header section */}
         <div className="absolute top-0 left-0 w-full h-[60px] bg-[#19182D] rounded-t-[25px] flex items-center justify-between px-4">
           <h2 className="text-[#E2BBE9] text-xl font-bold absolute left-1/2 transform -translate-x-1/2">Create a post</h2>
