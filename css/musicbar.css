@@ -1,0 +1,211 @@
+.music-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #2F2C50;
+    display: flex;
+    align-items: center; /* Center content vertically */
+    justify-content: space-between; /* Center content horizontally */
+    padding: 10px;
+}
+
+/* Button styles */
+.music-control {
+    background: none; /* Remove background */
+    border: none; /* Remove border */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    margin: 2px; /* Add small margin between controls */
+    position: relative; /* Position relative to allow absolute positioning of tooltip */
+    padding-top: 10px;
+}
+
+.music-controls-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons and slider vertically */
+    padding-bottom: 10px;
+    margin-left: 450px;
+}
+
+.music-buttons-container {
+    display: flex; /* Align buttons in a row */
+    justify-content: center; /* Center buttons horizontally */
+    padding-bottom: 10px;
+
+}
+
+/*Button icons*/
+.music-control img {
+    width: 20px; /* Set default icon size */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.play-pause-btn img {
+    width: 40px; /* Make play/pause icon larger */
+} 
+
+.previous-btn img {
+    width: 25px; /* Set size for rewind button icon */
+} 
+
+.next-btn img {
+    width: 25px; /* Set size for forward button icon */
+} 
+
+.music-control:hover img {
+    filter: brightness(1.5); /* Brighten icon on hover */
+}
+
+.music-control.active img {
+    filter: brightness(3); /* Brighten only the icon */
+}
+
+/* Tooltip styles */
+.music-control[data-visible='true']::after {
+    opacity: 1; /* Show tooltip when data-visible is true */
+}
+
+.music-control::after {
+    content: attr(data-tooltip); /* Use data-tooltip for content */
+    position: absolute;
+    bottom: 90%; /* Position above the button */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust centering */
+    background-color: #19182D; /* Tooltip background color */
+    color: #E2BBE9; /* Tooltip text color */
+    padding: 5px 10px; /* Padding around text */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 12px; /* Font size */
+    opacity: 0; /* Hide tooltip by default */
+    
+    white-space: nowrap; /* Prevent line breaks */
+    max-width: none; /* Allow the tooltip to expand based on content */
+}
+
+main {
+    margin-bottom: 120px; /* Add bottom margin to prevent content from being hidden behind the music bar */
+}
+
+/*Time control stuff*/
+.time-slider-container {
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    justify-content: center; /* Center align items horizontally */
+}
+
+#timeSlider {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    appearance: none; /* Remove default styling */
+    width: 450px; /* Set width of the slider */
+    height: 3px; /* Set height of the slider */
+    background: linear-gradient(to right, #f7f7f7 0%, #9B86BD 0%); /* Set gradient background */
+    margin: 0 10px; /* Add horizontal margin */
+    border-radius: 10px; /* Round the corners */
+    outline: none; /* Remove outline */
+}
+
+#timeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    appearance: none; /* Remove default styling */
+    width: 12px; /* Set width of the thumb */
+    height: 12px; /* Set height of the thumb */
+    border-radius: 50%; /* Make the thumb circular */
+    background: #f7f7f7; /* Set background color of the thumb */
+    opacity: 0; /* Hide the thumb by default */
+}
+
+#timeSlider:hover::-webkit-slider-thumb {
+    opacity: 1; /* Show the thumb on hover */
+}
+
+#timeSlider::-moz-range-thumb {
+    width: 12px; /* Set width of the thumb for Firefox */
+    height: 12px; /* Set height of the thumb for Firefox */
+    border-radius: 50%; /* Make the thumb circular */
+    background: #fffefe; /* Set background color of the thumb */
+    opacity: 0; /* Hide the thumb by default */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
+
+#timeSlider:hover::-moz-range-thumb {
+    opacity: 1; /* Show the thumb on hover for Firefox */
+}
+
+#currentTime, #totalTime {
+    color: #E2BBE9; /* Set text color for time labels */
+    font-size: 12px; /* Set font size for time labels */
+}
+
+/*Volume control styles*/
+.volume-control {
+    display: flex;
+    align-items: center; /* Align icon and slider vertically */
+    margin-left: 20px; /* Add some space between controls and volume */
+}
+
+.volume-controls-container {
+    display: flex;
+    flex-direction: none; /* Stack buttons and slider vertically */
+    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-right: 20px;
+    justify-content: center; /* Center align items horizontally */
+
+}
+
+#volumeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#volumeBtn img {
+    width: 20px;
+    height: auto;
+}
+
+#volumeBtn:hover img {
+    filter: brightness(1.5);
+}
+
+#volumeBtn.muted img {
+    filter: brightness(3);
+}
+
+#volumeSlider {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none; /* Remove default styling */
+    width: 100px; /* Set width of the slider */
+    height: 4px; /* Set height of the slider */
+    background: linear-gradient(to right, #E2BBE9 0%, #9B86BD 0%); /* Set gradient background */
+    border-radius: 10px; /* Round the corners */
+    outline: none; /* Remove outline */
+    margin-top: 20px;
+}
+
+#volumeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    appearance: none; /* Remove default styling */
+    width: 12px; /* Set width of the thumb */
+    height: 12px; /* Set height of the thumb */
+    border-radius: 50%; /* Make the thumb circular */
+    background: #f7f7f7; /* Set background color of the thumb */
+    opacity: 0; /* Hide the thumb by default */
+}
+
+#volumeSlider:hover::-webkit-slider-thumb {
+    opacity: 1; /* Show the thumb on hover */
+}
+
+#volumeSlider::-moz-range-thumb {
+    width: 12px; /* Set width of the thumb for Firefox */
+    height: 12px; /* Set height of the thumb for Firefox */
+    border-radius: 50%; /* Make the thumb circular */
+    background: #fffefe; /* Set background color of the thumb */
+    opacity: 0; /* Hide the thumb by default */
+    transition: opacity 0.3s ease; /* Smooth transition for opacity change */
+}
+
+#volumeSlider:hover::-moz-range-thumb {
+    opacity: 1; /* Show the thumb on hover for Firefox */
+}

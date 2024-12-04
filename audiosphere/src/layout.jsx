@@ -1,107 +1,17 @@
-import { useState } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import Sidebar from "./components/sidebar"; // Import Sidebar
 
-function Layout() {
-  const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+const Layout = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        minHeight: "100vh",
-        background: "#121212",
-        color: "white",
-      }}
-    >
-      <nav
-        style={{
-          width: "240px",
-          background: "#1a1a1a",
-          padding: "20px",
-          display: "flex",
-          flexDirection: "column",
-          gap: "12px",
-        }}
-      >
-        <button
-          onClick={() => navigate("/")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Home
-        </button>
-        <button
-          onClick={() => navigate("/search")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Search
-        </button>
-        <button
-          onClick={() => navigate("/create")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Create
-        </button>
-        <button
-          onClick={() => navigate("/notifications")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Notifications
-        </button>
-        <button
-          onClick={() => navigate("/profile")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Profile
-        </button>
-        <button
-          onClick={() => navigate("/playlist")}
-          style={{
-            padding: "10px",
-            background: "#333",
-            border: "none",
-            color: "white",
-            borderRadius: "4px",
-          }}
-        >
-          Playlist
-        </button>
-      </nav>
-      <main style={{ flex: 1, padding: "20px" }}>
-        <Outlet />
+    <div className="flex min-h-screen bg-[#5A639C] text-white">
+      {/* Sidebar with a fixed width */}
+      <Sidebar className="w-64" /> {/* Set a fixed width for the sidebar */}
+      <main className="flex-1 p-5 mb-[120px] ml-64">
+        {/* The main content will have a left margin that equals the width of the sidebar */}
+        <Outlet /> {/* Routed components render here */}
       </main>
     </div>
   );
-}
+};
 
 export default Layout;

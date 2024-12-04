@@ -1,0 +1,67 @@
+/* Sidebar container styles */
+.sidebar {
+    position: fixed; /* Fix the sidebar position */
+    left: 0;
+    top: 0;
+    width: 332px; /* Set specific width */
+    height: 832px; /* Set specific height */
+    background-color: #19182D;
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: flex-start; /* Align items to the start of the cross axis */
+    padding-top: 20px;
+}
+
+/* Logo styles */
+.audiosphere-logo {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    color: #E2BBE9;
+    text-align: center;
+    margin: 10px 0;
+    letter-spacing: 2px; /* Increase spacing between letters */
+    align-self: center; /* Center the logo within the sidebar */
+}
+
+/* Navigation button styles */
+.nav-button {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    color: #9B86BD; 
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px 30px;
+    margin: 10px 0;
+    width: 100%;
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Navigation icon styles */
+.nav-icon {
+    width: 35px;
+    height: 30px;
+    margin-right: 20px;
+    transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Hover effect for navigation buttons */
+.nav-button:hover {
+    filter: brightness(1.5); /* Increase brightness on hover */
+    background-color: transparent; /* Ensure background remains transparent on hover */
+}
+
+/* Active state for navigation buttons */
+.nav-button.active {
+    filter: brightness(1.5); /* Increase brightness for active state */
+}
+
+/* Main content area styles */
+main {
+    padding: 1rem;
+}
