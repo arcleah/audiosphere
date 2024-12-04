@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 import mira from "../assets/mira-hart.jpg";
 import sabrina from "../assets/sabrina.svg";
 import sza from "../assets/sza.svg";
 import frank from "../assets/frank.svg";
-import CommentsPopup from './CommentsPopup';  // Import the CommentsPopup component
-import ProfilePlaylist from "./profilePlaylist";
-
+import CommentsPopup from './CommentsPopup'; // Import CommentsPopup
+import ProfilePlaylist from "./profilePlaylist"; // Import ProfilePlaylist
+import playlistpic1 from "../assets/playlist1-pic.jpg";
+import playlistpic2 from "../assets/playlist2-pic.jpg";
+import playlistpic3 from "../assets/playlist3-pic.jpg";
 
 function ProfilePage() {
   const [selectedPost, setSelectedPost] = useState(null);
-  const [currentScreen, setCurrentScreen] = useState("profile"); // Track the current screen
   const [selectedPlaylist, setSelectedPlaylist] = useState(null); // Store the selected playlist
 
   const user = {
@@ -58,22 +58,26 @@ function ProfilePage() {
     followers: 250,
     following: 180,
     playlists: [
-      { name: "Liked Songs", songs: [{ title: "Taste", artist: "Doja Cat", duration: "3:30" }] },
-      { name: "Classical Classics", songs: [{ title: "Fur Elise", artist: "Beethoven", duration: "2:45" }] },
-      { name: "Throwbacks n More", songs: [{ title: "Hotline Bling", artist: "Drake", duration: "4:05" }] },
+      { name: "Liked Songs", pic: playlistpic1, songs: [{ title: "Taste", artist: "Sabrina Carpenter", duration: "2:37", cover: sabrina }] },
+      { name: "Its a bop", pic: playlistpic2, songs: [{ title: "Good Days", artist: "SZA", duration: "3:30", cover: sza }] },
+      { name: "Lofi", pic: playlistpic3, songs: [{ title: "Ivy", artist: "Frank Ocean", duration: "4:05", cover: frank }] },
     ],
   };
 
   const handlePlaylistClick = (playlist) => {
     setSelectedPlaylist(playlist); // Set the selected playlist
-    setCurrentScreen("playlist"); // Change the screen to display the playlist
   };
 
   const handleBackToProfile = () => {
     setSelectedPlaylist(null); // Clear the selected playlist
-    setCurrentScreen("profile"); // Go back to the profile screen
   };
 
+  // Render the playlist screen if a playlist is selected
+  if (selectedPlaylist) {
+    return <ProfilePlaylist playlist={selectedPlaylist} onBack={handleBackToProfile} />;
+  }
+
+  // Default: Profile Screen
   return (
     <div className="fixed top-[15%] right-[30px] w-[70%] h-[70%] max-h-[70%] bg-[#2F2C50] rounded-xl p-5 shadow-lg overflow-hidden flex flex-col">
       {/* Top Section */}
@@ -113,7 +117,28 @@ function ProfilePage() {
       <div className="absolute bottom-0 left-0 w-full h-[60%] bg-[#2F2C50] p-6 rounded-b-xl">
         <h2 className="text-white text-2xl font-bold mb-4">Posts & Playlists</h2>
         <div className="flex space-x-4 h-[calc(100%-40px)]">
+          {/* Posts Section */}
           <div className="w-1/2 bg-[#19182D] p-4 rounded-xl overflow-y-auto">
+          {/* Custom Scrollbar Styles */}
+        <style>
+          {`
+            ::-webkit-scrollbar {
+              width: 8px;
+            }
+            ::-webkit-scrollbar-thumb {
+              background-color: #6B5DD3;
+              border-radius: 10px;
+              border: 2px solid #3A3955;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+              background-color: #584CC6;
+            }
+            ::-webkit-scrollbar-track {
+              background-color: #2A2945;
+              border-radius: 10px;
+            }
+          `}
+        </style>
             <h3 className="text-[#E2BBE9] text-xl font-semibold">Posts ({user.posts.length})</h3>
             <div className="mt-[20px] ml-[8px] p-2">
               {user.posts.map((post) => (
@@ -131,15 +156,15 @@ function ProfilePage() {
                       <h3 className="text-sm text-[#2F2C50] font-small">
                         {post.content.slice(0, 20)}
                       </h3>
-                      <p className="text-xs text-[#2F2C50] font-semibold">{post.song} • {post.artist.slice(0,5)} | {new Date(post.createdAt).toLocaleDateString()}</p>
+                      <p className="text-xs text-[#2F2C50] font-semibold">
+                        {post.song} • {post.artist.slice(0, 5)} | {new Date(post.createdAt).toLocaleDateString()}
+                      </p>
                     </div>
-                    <button className="ml-auto cursor-pointer">
-                      <img
-                        src="/assets/icons/circle-play-svgrepo-com copy.svg"
-                        alt="View Post"
-                        className="w-10 h-10"
-                      />
-                    </button>
+                    <img
+                      src="/assets/icons/circle-play-svgrepo-com copy.svg"
+                      alt="View Post"
+                      className="w-10 h-10"
+                    />
                   </div>
                 </div>
               ))}
@@ -147,35 +172,34 @@ function ProfilePage() {
           </div>
 
           {/* Playlists Section */}
-          <div className="w-1/2 bg-[#2F2C50] p-4 rounded-lg">
-                <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists</h3>
-                <div className="flex flex-col gap-4 mt-3">
-                  {user.playlists.map((playlist, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePlaylistClick(playlist)}
-                      className="flex items-center bg-[#19182D] p-3 rounded-lg text-white text-l hover:bg-[#5A639C] transition-all duration-300"
-                    >
-                      <div className="mr-3">🎵</div>
-                      <p>{playlist.name}</p>
-                    </button>
-                  ))}
-                </div>
-              </div>
+          <div className="w-1/2 bg-[#2F2C50] p-4 rounded-lg overflow-y-auto">
+            <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists</h3>
+            <div className="flex flex-col gap-4 mt-3">
+              {user.playlists.map((playlist, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePlaylistClick(playlist)}
+                  className="flex items-center bg-[#19182D] p-3 rounded-lg text-white text-l hover:bg-[#5A639C] transition-all duration-300"
+                >
+                  <img
+                    src={playlist.pic}
+                    className="w-[70px] h-[70px] rounded-full ml-[20px]"
+                    alt="Playlist Thumbnail"
+                  />
+                  <p className="text-l text-[#E2BBE9] font-semibold p-5">{playlist.name}</p>
+                </button>
+              ))}
             </div>
           </div>
-
-        
+        </div>
+      </div>
 
       {/* Comments Popup */}
       {selectedPost && (
         <CommentsPopup
           post={selectedPost}
-          onClose={() => setSelectedPost(null)}  // Close the popup when back button is clicked
+          onClose={() => setSelectedPost(null)} // Close the popup when back button is clicked
         />
-      )}
-      {currentScreen === "playlist" && selectedPlaylist && (
-        <ProfilePlaylist playlist={selectedPlaylist} onBack={handleBackToProfile} />
       )}
     </div>
   );
