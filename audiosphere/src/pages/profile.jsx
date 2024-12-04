@@ -115,7 +115,7 @@ function ProfilePage() {
                     <img
                       src={post.thumbnail}
                       alt={`${post.content} Thumbnail`}
-                      className="w-[100px] h-[100px] rounded-full border-2 border-[#2F2C50] ml-[20px]"
+                      className="w-[100px] h-[100px] rounded-full ml-[20px]"
                     />
 
                     {/* Post Content */}
