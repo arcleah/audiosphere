@@ -123,9 +123,8 @@ function ProfilePage() {
                       <h3 className="text-sm text-[#2F2C50] font-small">
                         {post.content.slice(0, 20)}{/* Display only first 15 characters */}
                       </h3>
-                      <p className="text-xs text-[#2F2C50] font-semibold">{post.song} - {post.artist} | {new Date(post.createdAt).toLocaleDateString()}</p>
+                      <p className="text-xs text-[#2F2C50] font-semibold">{post.song} • {post.artist} | {new Date(post.createdAt).toLocaleDateString()}</p>
                     </div>
-
               
 
                     {/* Action Button */}
