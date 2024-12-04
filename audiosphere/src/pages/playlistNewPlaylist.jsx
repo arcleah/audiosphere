@@ -75,7 +75,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
 
     return (
         <div className="relative">
-            <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
+            <div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
             {/* Header section */}
             <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                 <button 
