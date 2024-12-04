@@ -68,7 +68,7 @@ const CreateSelectSong = ({ onSongSelect, onSearchQueryChange }) => {
             {/* Popup */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-[100px] focus:outline-none flex justify-between items-center z-50">
               <div className="flex flex-col items-start justify-center text-center">
-                <p className="text-[#2F2C50] font-bold ml-[160px]">Great choice!</p>
+                <p className="text-[#2F2C50] font-bold ml-[160px]">We're sorry!</p>
                 <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to create a post.</p>
               </div>
               <button 

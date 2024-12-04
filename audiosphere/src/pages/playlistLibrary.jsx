@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 
 const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSelectPlaylist }) => {
     const [searchQuery, setSearchQuery] = useState(''); // State for search query
+    const [playingSongId, setPlayingSongId] = useState(null); // State to track currently playing song
+
+    const togglePlayPause = (songId) => {
+        if (playingSongId === songId) {
+            // If the same song is clicked, pause it
+            setPlayingSongId(null);
+        } else {
+            // Play the new song
+            setPlayingSongId(songId);
+        }
+    };
 
     // Filter playlists based on search query
     const filteredPlaylists = playlists.filter(playlist =>
@@ -46,6 +57,13 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
 
                 {/* Content */}
                 <div className="mt-12 ml-4 max-h-[550px] overflow-y-auto pt-[90px] pb-[20px] p-4">
+
+                    {filteredPlaylists.length === 0 && (
+                        <h1 className="absolute top-[130px] text-[18px] text-[#E2BBE9] opacity-80">
+                            Currently no playlists...
+                        </h1>
+                    )}
+
                     {filteredPlaylists.map(playlist => (
                         <div 
                             key={playlist.id} 
@@ -69,8 +87,18 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
                                 </span>
                             </div>
                             {/* Circle Play Button */}
-                            <button className="ml-auto cursor-pointer">
-                                <img src="/assets/icons/circle-play-svgrepo-com copy.svg" alt="Play" className="w-10 h-10 mr-[12px]" />
+                            <button 
+                                className="ml-auto cursor-pointer" 
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevent triggering playlist selection
+                                    togglePlayPause(playlist.id); // Use playlist.id or a unique song identifier
+                                }}
+                            >
+                                <img 
+                                    src={playingSongId === playlist.id ? "/assets/icons/pauseButtonExistingPlaylist.svg" : "/assets/icons/playButtonExistingPlaylist.svg"} 
+                                    alt={playingSongId === playlist.id ? "Pause" : "Play"} 
+                                    className="w-10 h-10 mr-[12px]" 
+                                />
                             </button>
                             {/* Circle Minus Button */}
                             <button 

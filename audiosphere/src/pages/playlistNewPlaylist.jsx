@@ -6,7 +6,17 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
     const [sortBy, setSortBy] = useState('');
     const [playlistName, setPlaylistName] = useState(currentPlaylistName); // Editable playlist name
     const [isEditing, setIsEditing] = useState(false); // State for editing mode
+    const [playingSongId, setPlayingSongId] = useState(null); // State to track currently playing song
 
+    const togglePlayPause = (songId) => {
+        if (playingSongId === songId) {
+            // If the same song is clicked, pause it
+            setPlayingSongId(null);
+        } else {
+            // Play the new song
+            setPlayingSongId(songId);
+        }
+    };
     // Function to calculate total duration
     const calculateTotalDuration = () => {
         let totalSeconds = addedSongs.reduce((total, song) => {
@@ -78,11 +88,11 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                 {/* Add Song Button */}
                 <button 
                     onClick={onAddSong} 
-                    className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
+                    className="absolute left-[940px] top-[160px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
                 >
                     <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
                 </button>
-                    
+
                 {/* Playlist cover */}
                 <div className="absolute top-[25px] left-[110px] w-[150px] h-[150px] rounded-full bg-[#9B86BD] overflow-hidden flex items-center justify-center">
                     {/* Conditionally render the icon based on editing state */}
@@ -128,13 +138,26 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                 {/* Playlist info in header */}
                 {addedSongs.length > 0 && (
                     <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
-                        {addedSongs.length} songs | {minutes} min {seconds} sec |
+                        {addedSongs.length} songs | {minutes} min {seconds} sec 
                     </div>
                 )}
+
+                {addedSongs.length === 0 && (
+                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-[#E2BBE9] opacity-80">
+                        This playlist is currently empty...
+                    </h1>
+                )}  
             
+
+
 
         {/*searching through playlist stuff*/}
         <div className="flex items-center ml-4">
+
+            {addedSongs.length > 0 && (
+                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+            )}
+
             {/* Dropdown menu for sorting */}
             {addedSongs.length > 0 && (
             <select value={sortBy} onChange={handleSortChange} className="absolute left-[280px] top-[165px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
@@ -216,9 +239,19 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                     <span className="text-[#2F2C50] w-1/3">{song.duration}</span>
                   </div>
                   {/* Circle Play Button */}
-                  <button className="ml-auto cursor-pointer">
-                    <img src="/assets/icons/circle-play-svgrepo-com copy.svg" alt="Play" className="w-10 h-10 mr-[12px]" />
-                  </button>
+                  <button 
+                    className="ml-auto cursor-pointer" 
+                    onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering playlist selection
+                        togglePlayPause(song.instanceId); // Use playlist.id or a unique identifier for the song
+                    }}
+                >
+                    <img 
+                        src={playingSongId === song.instanceId ? "/assets/icons/pauseButtonExistingPlaylist.svg" : "/assets/icons/playButtonExistingPlaylist.svg"} 
+                        alt={playingSongId === song.instanceId ? "Pause" : "Play"} 
+                        className="w-10 h-10 mr-[12px]" 
+                    />
+                </button>
                   {/* Circle Minus Button */}
                   <button 
                     className="ml-auto cursor-pointer" 

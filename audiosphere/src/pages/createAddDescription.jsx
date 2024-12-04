@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Component for adding a description to a selected song
-const CreateAddDescription = ({ selectedSong, onBack }) => {
+const CreateAddDescription = ({ selectedSong, onBack, origin }) => {
   const [description, setDescription] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false); // State for confirmation popup
   const audioRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (audioRef.current) {
@@ -56,7 +58,20 @@ const CreateAddDescription = ({ selectedSong, onBack }) => {
     if (description.trim()) { // Check if description is not empty
       setShowConfirmPopup(true); // Show confirmation popup instead of navigating back immediately
     } else {
-      onBack(); // Navigate back immediately if description is empty
+      navigateBack(); // Navigate back immediately if description is empty
+    }
+  };
+
+  const navigateBack = () => {
+    if (origin === 'existingPlaylist') {
+      // Navigate back to the existing playlist page
+      navigate(-1); // This will go back to the previous page in the history
+    } else if (origin === 'createSearchResults') {
+      // Go back to search results within the Create flow
+      onBack();
+    } else {
+      // Default case: just use onBack
+      onBack();
     }
   };
 
@@ -67,7 +82,7 @@ const CreateAddDescription = ({ selectedSong, onBack }) => {
         audioRef.current.pause(); // Stop audio playback
       }
       setIsPlaying(false); // Reset play status
-      onBack(); // Navigate back
+      navigateBack(); // Use the navigateBack function
     }
     setShowConfirmPopup(false); // Close the confirmation popup
   };

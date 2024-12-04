@@ -259,12 +259,15 @@ function PlaylistPage() {
     setSongToRemove(null);
   };
 
-  const handleRemoveSongFromExisting = (songToRemove) => {
-    setSelectedPlaylist(prevPlaylist => ({
-      ...prevPlaylist,
-      songs: prevPlaylist.songs.filter(song => song.instanceId !== songToRemove.instanceId)
-    }));
-  };
+  const handleRemoveSong = (song) => {
+    setPlaylists(prevPlaylists =>
+        prevPlaylists.map(playlist =>
+            playlist.id === selectedPlaylist.id 
+            ? { ...playlist, songs: playlist.songs.filter(s => s.instanceId !== song.instanceId) } 
+            : playlist
+        )
+    );
+};
 
   const handleUpdatePlaylistName = (newName) => {
     setPlaylists(prevPlaylists =>
@@ -300,6 +303,8 @@ function PlaylistPage() {
       {currentScreen === 'searchSong' && (
         <PlaylistSearchSong 
           onBack={handleBack}
+          addedSongs={addedSongs}
+
           onAddSong={handleAddSong} 
           onSearchQueryChange={handleSearchQueryChange} 
           setCurrentScreen={setCurrentScreen}
@@ -312,6 +317,8 @@ function PlaylistPage() {
       {currentScreen === 'searchResults' && (
         <PlaylistSearchResults 
           onBack={handleBack}
+          addedSongs={addedSongs}
+
           searchQuery={searchQuery}
           onAddSong={handleAddSong}
           setSearchQuery={setSearchQuery}
@@ -327,7 +334,7 @@ function PlaylistPage() {
         <ExistingPlaylistPage 
           playlist={selectedPlaylist}
           onBack={handleBackFromDetails}
-          onRemoveSong={handleRemoveSongFromExisting} // If you want to implement song removal here
+          onRemoveSong={handleRemoveSong} // If you want to implement song removal here
           setCurrentPlaylistName={handleUpdatePlaylistName} // Pass this function to update the name
           
         />

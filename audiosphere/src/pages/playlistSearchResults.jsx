@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 
-const PlaylistSearchResults = ({ onBack, searchQuery, setSearchQuery, onAddSong, setCurrentScreen, addSongToPlaylist, currentPlaylistName, setCurrentPlaylistName, onSavePlaylist }) => {
+const PlaylistSearchResults = ({ onBack, addedSongs, searchQuery, setSearchQuery, onAddSong, setCurrentScreen, addSongToPlaylist, currentPlaylistName, setCurrentPlaylistName, onSavePlaylist }) => {
     const [showPopup, setShowPopup] = useState(false); // State to manage popup visibility
     const [isEditing, setIsEditing] = useState(false); // State for editing mode
     const [playlistName, setPlaylistName] = useState(currentPlaylistName); // Local state for playlist name
+    const [playingSongId, setPlayingSongId] = useState(null); // Track currently playing song
+
+    const togglePlayPause = (songId) => {
+        if (playingSongId === songId) {
+            // If the same song is clicked, pause it
+            setPlayingSongId(null);
+        } else {
+            // Play the new song
+            setPlayingSongId(songId);
+        }
+    };
 
 // Dummy data for demonstration purposes
 const songs = [
@@ -48,6 +59,21 @@ const handleSaveClick = () => {
     setCurrentPlaylistName(playlistName); // Save changes to parent state
 };
 
+    // Function to calculate total duration
+    const calculateTotalDuration = () => {
+    let totalSeconds = addedSongs.reduce((total, song) => {
+        const [minutes, seconds] = song.duration.split(':').map(Number);
+        return total + (minutes * 60 + seconds);
+    }, 0);
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    return { minutes, seconds };
+    };
+
+    const { minutes, seconds } = calculateTotalDuration();
+
 return(
 <div className="relative">
             <div className="absolute left-[350px] top-[40px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px] overflow-hidden">
@@ -63,7 +89,7 @@ return(
                 {/* Add Song Button */}
                 <button 
                     onClick={onAddSong} 
-                    className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
+                    className="absolute left-[940px] top-[160px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
                 >
                     <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
                 </button>
@@ -108,6 +134,19 @@ return(
                     onClick={onSavePlaylist}
                     className="absolute right-4 top-4 w-[60px] h-[30px] rounded-full bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
                 >Save</button>
+
+                {/* Playlist info in header */}
+                {addedSongs.length > 0 && (
+                  <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
+                      {addedSongs.length} songs | {minutes} min {seconds} sec
+                  </div>
+                )}
+
+                {addedSongs.length === 0 && (
+                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-[#E2BBE9] opacity-80">
+                        This playlist is currently empty...
+                    </h1>
+                )}  
             </div>
         </div>
 
@@ -153,9 +192,19 @@ return(
                                       <span className="text-[#2F2C50] w-1/3">{song.duration}</span>
                                   </div>
                                   {/* Circle Play Button */}
-                                  <button className="ml-auto cursor-pointer" onClick={() => console.log(`Playing ${song.title}`)}>
-                                      <img src="/assets/icons/circle-play-svgrepo-com copy.svg" alt="Play" className="w-10 h-10 mr-[12px]" />
-                                  </button>
+                                  <button 
+                                        className="ml-auto cursor-pointer" 
+                                        onClick={(e) => {
+                                            e.stopPropagation(); // Prevent triggering other click handlers
+                                            togglePlayPause(song.id); // Use song.id or a unique identifier for the song
+                                        }}
+                                    >
+                                        <img 
+                                            src={playingSongId === song.id ? "/assets/icons/pauseButtonExistingPlaylist.svg" : "/assets/icons/playButtonExistingPlaylist.svg"} 
+                                            alt={playingSongId === song.id ? "Pause" : "Play"} 
+                                            className="w-10 h-10 mr-[12px]" 
+                                        />
+                                    </button>
                                   {/* Circle Plus Button */}
                                   <button 
                                       className="ml-auto cursor-pointer" 
@@ -189,7 +238,7 @@ return(
               {/* Popup */}
               <div className="absolute top-[383px] absolute left-[900px] transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-auto focus:outline-none flex justify-between items-center z-50">
                 <div className="flex flex-col items-start justify-center text-center">
-                <p className="text-[#2F2C50] font-bold ml-[160px]">Great choice!</p>
+                <p className="text-[#2F2C50] font-bold ml-[160px]">We're sorry!</p>
                 <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to add to a playlist.</p>
                 </div>
                 <button 

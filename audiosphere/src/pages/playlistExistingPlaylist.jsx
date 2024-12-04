@@ -1,14 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlaylistName, onAddSong }) => {
     const [playlistName, setPlaylistName] = useState(playlist.name); // Set initial name from the playlist prop
+    const [localSongs, setLocalSongs] = useState(playlist.songs);
     const [isEditing, setIsEditing] = useState(false); // State for editing mode
     const [sortBy, setSortBy] = useState('');
     const [searchQuery, setSearchQuery] = useState(''); // State for search query
     const [isSearching, setIsSearching] = useState(false); // State for searching mode
     const [showPopup, setShowPopup] = useState(false); // State for controlling popup visibility
     const [showConfirmRemovePopup, setShowConfirmRemovePopup] = useState(false); // For remove confirmation
+    const [showCreatePopup, setShowCreatePopup] = useState(false);
     const [songToRemove, setSongToRemove] = useState(null); // Store song to remove
+    const [playingSongId, setPlayingSongId] = useState(null); // State to track currently playing song
+    const navigate = useNavigate();
+
+    const handleCreateDescription = (song) => {
+        if (song.title === 'Baby' && song.artist === 'Justin Bieber') {
+            navigate('/create', { state: { initialScreen: 'addDescription', selectedSong: song, origin:'existingPlaylist' } });        
+        } else {
+            setShowCreatePopup(true);
+        }
+    };
+
+    // Update localSongs whenever playlist changes
+    useEffect(() => {
+        setLocalSongs(playlist.songs);
+    }, [playlist]);
+
+        const togglePlayPause = (songId) => {
+        if (playingSongId === songId) {
+            // If the same song is clicked, pause it
+            setPlayingSongId(null);
+        } else {
+            // Play the new song
+            setPlayingSongId(songId);
+        }
+    };
 
     // Handle edit button click
     const handleEditClick = () => {
@@ -37,12 +66,15 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
         setShowPopup(false); // Hide the popup
     };
 
+    const closeCreatePopup = () => {
+        setShowCreatePopup(false); // Hide the popup
+    };
+
     // Filter songs based on search query
-    const filteredSongs = playlist.songs.filter(song =>
+    const filteredSongs = localSongs.filter(song =>
         song.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Sort songs based on selected criteria
     const sortedSongs = [...filteredSongs].sort((a, b) => {
         switch (sortBy) {
             case 'title':
@@ -54,15 +86,15 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 const bDuration = b.duration.split(':').map(Number);
                 return (aDuration[0] * 60 + aDuration[1]) - (bDuration[0] * 60 + bDuration[1]);
             case 'added':
-                return a.instanceId - b.instanceId; // Assuming instanceId is used for order of addition
+                return a.instanceId - b.instanceId;
             default:
-                return 0; // No sorting
+                return 0;
         }
     });
 
-    // Function to calculate total duration of songs in the playlist
+    // Function to calculate total duration of songs in the local playlist
     const calculateTotalDuration = () => {
-        let totalSeconds = playlist.songs.reduce((total, song) => {
+        let totalSeconds = localSongs.reduce((total, song) => {
             const [minutes, seconds] = song.duration.split(':').map(Number);
             return total + (minutes * 60 + seconds);
         }, 0);
@@ -81,13 +113,16 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
         setShowConfirmRemovePopup(true); // Show confirmation popup
     };
 
-    // Function to confirm removal of a song
-    const confirmRemoveSong = () => {
+    const handleConfirmRemove = () => {
         if (songToRemove) {
-            onRemoveSong(songToRemove); // Call the remove function with the selected song
-            setShowConfirmRemovePopup(false); // Close confirmation popup
+            // Call parent function to remove the song
+            onRemoveSong(songToRemove);
+            // Update local state to remove the song immediately
+            setLocalSongs(prevSongs => prevSongs.filter(s => s.instanceId !== songToRemove.instanceId));
+            closeConfirmRemovePopup();
         }
     };
+
 
     // Function to close confirmation popup
     const closeConfirmRemovePopup = () => {
@@ -111,8 +146,8 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                     {/* Add Song Button */}
                     <button 
                         onClick={handleAddSongClick} 
-                        className="absolute left-[330px] top-[114px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center"
-                    >
+                        className="absolute left-[940px] top-[160px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+                        >
                         <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
                     </button>
 
@@ -148,12 +183,21 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 </div>
 
                 {/* Playlist Info in Header */}
+                {localSongs.length > 0 && (
+
                 <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
-                    {playlist.songs.length} songs | {minutes} min {seconds} sec 
+                    {localSongs.length} songs | {minutes} min {seconds} sec 
                 </div>
+                )}
 
                 <div className="flex items-center ml-4 mt-4">
+
+                {localSongs.length > 0 && (
+                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                )}
+
                     {/* Sorting Dropdown */}
+                    {filteredSongs.length > 0 && (
                     <select value={sortBy} onChange={handleSortChange} className="absolute left-[280px] top-[165px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
                         <option value="">Sort By</option>
                         <option value="title">Title: A-Z</option>
@@ -161,10 +205,14 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                         <option value="duration">Duration</option>
                         <option value="added">Order Added</option>
                     </select>
+                    )}
 
+                    {localSongs.length > 0 && (     
                     <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                    )}
 
                     {/* Searching Functionality */}
+                    {localSongs.length > 0 && (
                     <div className="absolute top-[143px] left-[560px] flex items-center justify-center relative">
                         {!isSearching ? (
                             <button 
@@ -198,14 +246,22 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                             </>
                         )}
                     </div>
+                    )}
+
+                    {localSongs.length === 0 && (
+                        <h1 className="absolute top-[165px] left-[285px] text-[16px] text-[#E2BBE9] opacity-80">
+                            This playlist is currently empty...
+                        </h1>
+                    )}
+
                 </div>
 
                 {/*header with titles*/}
-                <div className="absolute top-[200px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
+                <div className="absolute top-[210px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
                     <div className="w-[97px]" />
                     <div className="ml-20 mt-4 flex-grow flex">
-                    <span className="text-[#E2BBE9]  font-medium w-[245px]">Title</span>
-                    <span className="text-[#E2BBE9]  font-medium w-[270px]">Artist</span>
+                    <span className="text-[#E2BBE9]  font-medium w-[220px]">Title</span>
+                    <span className="text-[#E2BBE9]  font-medium w-[240px]">Artist</span>
                     <span className="text-[#E2BBE9]  font-medium w-1/3">Time</span>
                     </div>
                     
@@ -215,7 +271,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 {/* Songs List */}
                 <div className="absolute top-[240px] left-0 right-0 bottom-0 overflow-y-auto max-h-[350px] pb-[20px]">
                 <div className="p-4 ml-5">
-                    {sortedSongs.map((song) => (
+                {sortedSongs.map((song) => (
                         <div key={song.instanceId} className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[980px] h-[59px] mb-12">
                             <img src={song.cover} alt={`${song.title} Cover`} className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]" />
                             <div className="ml-4 flex-grow flex">
@@ -224,13 +280,38 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                                 <span className="text-[#2F2C50] w-1/3">{song.duration}</span>
                                 
                         </div>
-                        <button className="ml-auto cursor-pointer">
-                            <img src="/assets/icons/circle-play-svgrepo-com copy.svg" alt="Play" className="w-10 h-10 mr-[12px]" />
+
+                        {/*Create post from song in playlist button*/}
+                        <button onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleCreateDescription(song);
+                                }} className="mr-[12px]">
+                            <img src="/assets/icons/pen-circle-svgrepo-com.svg" alt="Remove" className="w-10 h-10" />
                         </button>
+                        
+                        {/*Play pause button*/}
+                        <button 
+                                className="ml-auto cursor-pointer" 
+                                onClick={(e) => {
+                                    e.stopPropagation(); // Prevent triggering playlist selection
+                                    togglePlayPause(song.instanceId); // Use playlist.id or a unique identifier for the song
+                                }}
+                            >
+                                <img 
+                                    src={playingSongId === song.instanceId ? "/assets/icons/pauseButtonExistingPlaylist.svg" : "/assets/icons/playButtonExistingPlaylist.svg"} 
+                                    alt={playingSongId === song.instanceId ? "Pause" : "Play"} 
+                                    className="w-10 h-10 mr-[10px]" 
+                                />
+                            </button>
+
+                        {/*remove song button*/}
                         <button onClick={() => openConfirmRemovePopup(song)} className="ml-auto">
                                 <img src="/assets/icons/circle-minus-svgrepo-com.svg" alt="Remove" className="w-10 h-10" />
                             </button>
+
+
                         </div>
+                        
                     ))}
                 </div>   
                 {/* Add a song button */}
@@ -271,6 +352,31 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
             </>
               )}
 
+              {/* Popup for unavailable functionality */}
+            {showCreatePopup && (
+            <>
+                {/* Backdrop Overlay */}
+                <div 
+                    className="fixed inset-0 bg-black opacity-60 backdrop-blur-md z-40 overlay" 
+                    onClick={closeCreatePopup} 
+                ></div>
+                {/* Popup */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-[120px] focus:outline-none flex justify-between items-center z-50">
+                    <div className="flex flex-col items-start justify-center text-center">
+                    <p className="text-[#2F2C50] font-bold ml-[160px]">We're sorry!</p>
+                    <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to create a post.</p>
+                    </div>
+                    <button 
+                    onClick={closeCreatePopup} 
+                    className="border border-[#2F2C50] text-[#2F2C50] w-[20px] h-[20px] mr-3 mb-20 rounded-[25px] text-[7px] font-bold flex items-center justify-center relative hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+                    >
+                    X
+                    </button>
+                </div>
+
+            </>
+              )}
+
             {/* Confirmation Popup for Removing Song */}
             {showConfirmRemovePopup && (
                 <>
@@ -288,7 +394,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                             Are you sure you want to remove "{songToRemove?.title}" from this playlist?</p>
                             <div className="flex justify-center space-x-16">
                             <button 
-                                onClick={confirmRemoveSong}
+                                onClick={handleConfirmRemove}
                                 className="border border-[#2F2C50] text-[#2F2C50] px-4 py-2 rounded-[15px] hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
                             >
                                 Remove
