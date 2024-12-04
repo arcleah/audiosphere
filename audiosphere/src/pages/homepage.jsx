@@ -88,7 +88,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-10 flex-1 overflow-auto max-h-[650px]">
+    <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-[50px] flex-1 overflow-auto max-h-[690px]">
       {/* Mira's profile image positioned at the top right corner */}
       <div className="absolute top-4 right-4">
         <img
