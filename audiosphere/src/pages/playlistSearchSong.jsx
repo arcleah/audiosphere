@@ -70,7 +70,7 @@ const PlaylistSearchSong = ({ onBack, addedSongs, onSearchQueryChange, onAddSong
 
     return (
 <div className="relative">
-<div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+<div className="absolute left-[85px] top-[20px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
 {/* Header section */}
             <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                 <button 
@@ -147,7 +147,7 @@ const PlaylistSearchSong = ({ onBack, addedSongs, onSearchQueryChange, onAddSong
         </div>
 
         {/* Search box styled like a button */}
-        <div className="absolute top-[272px] absolute left-[105px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
+        <div className="absolute top-[262px] absolute left-[105px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
           <div className="relative w-full">
             <form onSubmit={handleSearch}> {/* Use form to handle submit */}
               <div 

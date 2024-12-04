@@ -75,7 +75,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
 
     return (
         <div className="relative">
-            <div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+            <div className="absolute left-[85px] top-[20px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
             {/* Header section */}
             <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                 <button 
@@ -268,7 +268,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
               {/* Add a song button */}
               <button 
                 {...addedSongs.length == 0 && (
-                    <h1 className="absolute top-[280px] left-[166px] w-full h-[38px] text-[#E2BBE9] text-[20px] font-medium bg-[#2F2C50] z-10 flex items-center px-4 opacity-90">This playlist is currently empty...</h1>
+                    <h1 className="absolute top-[270px] left-[166px] w-full h-[38px] text-[#E2BBE9] text-[20px] font-medium bg-[#2F2C50] z-10 flex items-center px-4 opacity-90">This playlist is currently empty...</h1>
                 )}
                 className="mt-[2px] flex items-center bg-[#E2BBE9] rounded-full p-4 w-[980px] mb-2 h-[59px] opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110"
                 onClick={onAddSong}
