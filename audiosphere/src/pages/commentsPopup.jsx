@@ -93,9 +93,8 @@ const CommentsPopup = ({ post, onClose }) => {
           </div>
           <div className="text-center">
             <h4 className="text-lg font-semibold">{post.song}</h4>
-            <p className="text-sm text-gray-400">
-              {post.artist} | {post.duration}
-            </p>
+            {/* Updated duration */}
+            <p className="text-sm text-gray-400">{post.artist} | 2:37</p>
           </div>
           <button className="mt-2 bg-[#6B5DD3] hover:bg-[#584CC6] text-white rounded-full px-4 py-2 flex items-center gap-2">
             <span>Play</span>
