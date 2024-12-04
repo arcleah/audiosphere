@@ -1,16 +1,17 @@
-// src/layout.jsx
 import { Outlet } from "react-router-dom";
-import Sidebar from './components/sidebar'; // Import Sidebar
+import Sidebar from "./components/sidebar"; // Import Sidebar
 
-function Layout() {
+const Layout = () => {
   return (
-    <div style={{ display: "flex", minHeight: "100vh", background: "#5A639C", color: "white" }}>
-      <Sidebar /> {/* Render Sidebar here */}
-      <main style={{ flex: 1, padding: "20px", marginBottom: '120px' }}> {/* Add margin to prevent overlap */}
-        <Outlet /> {/* This is where routed components will be rendered */}
+    <div className="flex min-h-screen bg-[#5A639C] text-white">
+      <Sidebar /> {/* Sidebar stays on the side */}
+      <main className="flex-1 p-5 mb-[120px]">
+        {" "}
+        {/* Adjust padding and bottom margin */}
+        <Outlet /> {/* Routed components render here */}
       </main>
     </div>
   );
-}
+};
 
 export default Layout;
