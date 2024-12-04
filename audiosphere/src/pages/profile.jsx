@@ -5,10 +5,13 @@ import sabrina from "../assets/sabrina.svg";
 import sza from "../assets/sza.svg";
 import frank from "../assets/frank.svg";
 import CommentsPopup from './CommentsPopup';  // Import the CommentsPopup component
+import ProfilePlaylist from "./profilePlaylist";
+
 
 function ProfilePage() {
   const [selectedPost, setSelectedPost] = useState(null);
-  const navigate = useNavigate(); // Initialize navigate function
+  const [currentScreen, setCurrentScreen] = useState("profile"); // Track the current screen
+  const [selectedPlaylist, setSelectedPlaylist] = useState(null); // Store the selected playlist
 
   const user = {
     fullName: "Mira Hart",
@@ -55,10 +58,20 @@ function ProfilePage() {
     followers: 250,
     following: 180,
     playlists: [
-      { name: "Liked Songs", link: "/playlist" },
-      { name: "Classical Classics" },
-      { name: "Throwbacks n More" },
+      { name: "Liked Songs", songs: [{ title: "Taste", artist: "Doja Cat", duration: "3:30" }] },
+      { name: "Classical Classics", songs: [{ title: "Fur Elise", artist: "Beethoven", duration: "2:45" }] },
+      { name: "Throwbacks n More", songs: [{ title: "Hotline Bling", artist: "Drake", duration: "4:05" }] },
     ],
+  };
+
+  const handlePlaylistClick = (playlist) => {
+    setSelectedPlaylist(playlist); // Set the selected playlist
+    setCurrentScreen("playlist"); // Change the screen to display the playlist
+  };
+
+  const handleBackToProfile = () => {
+    setSelectedPlaylist(null); // Clear the selected playlist
+    setCurrentScreen("profile"); // Go back to the profile screen
   };
 
   return (
@@ -135,22 +148,24 @@ function ProfilePage() {
 
           {/* Playlists Section */}
           <div className="w-1/2 bg-[#2F2C50] p-4 rounded-lg">
-            <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists</h3>
-            <div className="flex flex-col gap-4 mt-3">
-              {user.playlists.map((playlist, index) => (
-                <button
-                  key={index}
-                  onClick={() => navigate(playlist.link)}
-                  className="flex items-center bg-[#19182D] p-3 rounded-lg text-white text-l hover:bg-[#5A639C] transition-all duration-300"
-                >
-                  <div className="mr-3">🎵</div>
-                  <p>{playlist.name}</p>
-                </button>
-              ))}
+                <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists</h3>
+                <div className="flex flex-col gap-4 mt-3">
+                  {user.playlists.map((playlist, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handlePlaylistClick(playlist)}
+                      className="flex items-center bg-[#19182D] p-3 rounded-lg text-white text-l hover:bg-[#5A639C] transition-all duration-300"
+                    >
+                      <div className="mr-3">🎵</div>
+                      <p>{playlist.name}</p>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+
+        
 
       {/* Comments Popup */}
       {selectedPost && (
@@ -158,6 +173,9 @@ function ProfilePage() {
           post={selectedPost}
           onClose={() => setSelectedPost(null)}  // Close the popup when back button is clicked
         />
+      )}
+      {currentScreen === "playlist" && selectedPlaylist && (
+        <ProfilePlaylist playlist={selectedPlaylist} onBack={handleBackToProfile} />
       )}
     </div>
   );
