@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // Component for searching and selecting songs
 const CreateSearchResults = ({ selectedSong, searchQuery, onBack, onSearchQueryChange, onSelectSong }) => {
