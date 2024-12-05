@@ -201,7 +201,7 @@ function SearchPage() {
                     <img
                       src={frankOcean}
                       alt="Frank Ocean"
-                      className="w-[150px] h-[150px] rounded-full"
+                      className="w-[150px] h-[150px] rounded-full object-cover"
                     />
                     <div className="ml-4">
                       <h3 className="text-white text-lg font-bold">Frank Ocean</h3>
@@ -210,54 +210,111 @@ function SearchPage() {
                   </div>
                 )}
 
-                {/* Song List */}
-                <div className="bg-[#19182D] rounded-lg p-4">
-  {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
-    <div
-      key={index}
-      className="flex items-center justify-between bg-purple-300 p-2 rounded-lg mb-2"
-    >
-      <p className="text-black">{song}</p>
-      <div className="flex items-center space-x-2">
-        <p className="text-black">{index + 3}:0{index + 4}</p>
-
-        {/* Play Button */}
-        <img src={play} alt="Play" className="w-6 h-6 cursor-pointer" />
-
-        {/* Heart Icon */}
-        <button
-          className={`transition duration-300 ${
-            likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
-          } hover:text-red-500 hover:scale-110`}
-          onClick={() =>
-            setLikedSongs((prevLikedSongs) =>
-              prevLikedSongs.includes(song)
-                ? prevLikedSongs.filter((s) => s !== song) // Unlike the song
-                : [...prevLikedSongs, song] // Like the song
-            )
-          }
+               {/*
+  Song List Section: Conditionally Render Based on Search Query
+*/}
+<div className="bg-[#2F2C50] h-100% rounded-lg p-2">
+  {searchQuery.toLowerCase() === "alexa miller" && (
+    <>
+      {["Alexander", "IDK You Yet", "Cozy"].map((song, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-between bg-purple-300 p-2 rounded-lg mb-2"
         >
-          <svg
-            className="w-6 h-6"
-            fill={likedSongs.includes(song) ? "red" : "none"}
-            stroke="currentColor"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-        </button>
+          <p className="text-black">{song}</p>
+          <div className="flex items-center space-x-2">
+            <p className="text-black">{index + 3}:0{index + 4}</p>
 
-        {/* Plus Icon */}
-        <img
-          src={plus}
-          alt="Add"
-          className="w-6 h-6 cursor-pointer"
-          onClick={() => handleAddToPlaylist(song)}
-        />
-      </div>
-    </div>
-  ))}
+            {/* Play Button */}
+            <img src={play} alt="Play" className="w-6 h-6 cursor-pointer" />
+
+            {/* Heart Icon */}
+            <button
+              className={`transition duration-300 ${
+                likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
+              } hover:text-red-500 hover:scale-110`}
+              onClick={() =>
+                setLikedSongs((prevLikedSongs) =>
+                  prevLikedSongs.includes(song)
+                    ? prevLikedSongs.filter((s) => s !== song) // Unlike the song
+                    : [...prevLikedSongs, song] // Like the song
+                )
+              }
+            >
+              <svg
+                className="w-6 h-6"
+                fill={likedSongs.includes(song) ? "red" : "none"}
+                stroke="black"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </button>
+
+            {/* Plus Icon */}
+            <img
+              src={plus}
+              alt="Add"
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => handleAddToPlaylist(song)}
+            />
+          </div>
+        </div>
+      ))}
+    </>
+  )}
+
+  {searchQuery.toLowerCase() === "frank ocean" && (
+    <>
+      {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
+        <div
+          key={index}
+          className="flex items-center justify-between bg-purple-300 p-2 rounded-lg mb-2"
+        >
+          <p className="text-black">{song}</p>
+          <div className="flex items-center space-x-2">
+            <p className="text-black">{index + 3}:0{index + 4}</p>
+
+            {/* Play Button */}
+            <img src={play} alt="Play" className="w-6 h-6 cursor-pointer" />
+
+            {/* Heart Icon */}
+            <button
+              className={`transition duration-300 ${
+                likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
+              } hover:text-red-500 hover:scale-110`}
+              onClick={() =>
+                setLikedSongs((prevLikedSongs) =>
+                  prevLikedSongs.includes(song)
+                    ? prevLikedSongs.filter((s) => s !== song) // Unlike the song
+                    : [...prevLikedSongs, song] // Like the song
+                )
+              }
+            >
+              <svg
+                className="w-6 h-6"
+                fill={likedSongs.includes(song) ? "red" : "none"}
+                stroke="black"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </button>
+
+            {/* Plus Icon */}
+            <img
+              src={plus}
+              alt="Add"
+              className="w-6 h-6 cursor-pointer"
+              onClick={() => handleAddToPlaylist(song)}
+            />
+          </div>
+        </div>
+      ))}
+    </>
+  )}
 </div>
 
               </div>

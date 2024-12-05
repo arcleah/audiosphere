@@ -5,64 +5,53 @@ import sza from "../assets/sza.svg";
 import frank from "../assets/frank.svg";
 import CommentsPopup from './CommentsPopup'; // Import CommentsPopup
 import ProfilePlaylist from "./profilePlaylist"; // Import ProfilePlaylist
-import playlistpic1 from "../assets/playlist1-pic.jpg";
-import playlistpic2 from "../assets/playlist2-pic.jpg";
+import playlistpic1 from "../assets/playlist4-pic.jpg";
+import playlistpic2 from "../assets/playlist5-pic.jpg";
 import playlistpic3 from "../assets/playlist3-pic.jpg";
-import back from "../assets/icons/chevron-left-svgrepo-com.svg"; // Import back button icon
-
 
 function alexaProfile({onBack}) {
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null); // Store the selected playlist
+  const [showConfirmUnfollowPopup, setShowConfirmUnfollowPopup] = useState(false); // Track popup visibility
+  const [isFollowing, setIsFollowing] = useState(true); // Track follow status
+
 
   const user = {
     fullName: "Alexa Miller",
     username: "itsalexa",
-    bio: "music major! 📚",
+    bio: "music major! 📚🎵",
     profilePicture: alexa,
     posts: [
       {
         id: 1,
-        content: "I loveee this song!!!",
-        thumbnail: sabrina,
-        createdAt: "Oct 30, 2024",
-        song: "Taste",
-        artist: "Sabrina Carpenter",
+        content: "If you like R&B, you gotta listen to this.",
+        thumbnail: sza,
+        createdAt: "Oct 29, 2024",
+        song: "Drew Barrymore",
+        artist: "SZA",
         comments: [
-          { user: "Alexa", text: "I love this song too!" },
+          { user: "Mira", text: "Love this" },
           { user: "Kevin", text: "The beat is amazing!" },
         ],
       },
       {
         id: 2,
         content: "Awesome song!",
-        thumbnail: sza,
+        thumbnail: frank,
         createdAt: "2024-10-24",
-        song: "Good Days",
-        artist: "SZA",
+        song: "Ivy",
+        artist: "Frank Ocean",
         comments: [
           { user: "Cindy", text: "Adding this to my playlist!" },
         ],
       },
-      {
-        id: 3,
-        content: "This track is on repeat! 🎧",
-        thumbnail: frank,
-        createdAt: "2024-10-01",
-        song: "Ivy",
-        artist: "Frank Ocean",
-        comments: [
-          { user: "Emily", text: "I can't stop listening to it either!" },
-          { user: "John", text: "Same here, it’s on loop!" },
-        ],
-      },
     ],
-    followers: 250,
-    following: 180,
+    followers: 100,
+    following: 90,
     playlists: [
       { name: "Liked Songs", pic: playlistpic1, songs: [{ title: "Taste", artist: "Sabrina Carpenter", duration: "2:37", cover: sabrina }] },
-      { name: "Its a bop", pic: playlistpic2, songs: [{ title: "Good Days", artist: "SZA", duration: "3:30", cover: sza }] },
-      { name: "Lofi", pic: playlistpic3, songs: [{ title: "Ivy", artist: "Frank Ocean", duration: "4:05", cover: frank }] },
+      { name: "classical classics", pic: playlistpic2, songs: [{ title: "Good Days", artist: "SZA", duration: "3:30", cover: sza }] },
+      { name: "moody", pic: playlistpic3, songs: [{ title: "Ivy", artist: "Frank Ocean", duration: "4:05", cover: frank }] },
     ],
   };
 
@@ -74,6 +63,21 @@ function alexaProfile({onBack}) {
     setSelectedPlaylist(null); // Clear the selected playlist
   };
 
+  const handleUnfollow = () => {
+    setIsFollowing(false);
+    setShowConfirmUnfollowPopup(false);
+    console.log(`You have unfollowed ${user.fullName}`);
+  };
+
+  const handleFollow = () => {
+    setIsFollowing(true);
+    console.log(`You are now following ${user.fullName}`);
+  };
+
+  const closeUnfollowPopup = () => {
+    setShowConfirmUnfollowPopup(false);
+  };
+
   // Render the playlist screen if a playlist is selected
   if (selectedPlaylist) {
     return <ProfilePlaylist playlist={selectedPlaylist} onBack={handleBackToProfile} />;
@@ -82,13 +86,6 @@ function alexaProfile({onBack}) {
   // Default: Profile Screen
   return (
     <div className="fixed top-[15%] right-[30px] w-[70%] h-[70%] max-h-[70%] bg-[#2F2C50] rounded-xl p-5 shadow-lg overflow-hidden flex flex-col">
-      {/* Back Button */}
-      <button
-        onClick={onBack} // Call the `onBack` function passed as a prop
-        className="bg-[#6B5DD3] p-2 rounded-full hover:bg-[#584CC6] transition duration-200 flex items-center justify-center mb-4"
-      >
-        <img src={back} alt="Back" className="w-6 h-6" />
-      </button>
       {/* Top Section */}
       <div className="absolute top-0 left-0 w-full h-[40%] bg-[#19182D] p-2 rounded-t-xl">
         <div className="mt-[0px] flex items-center gap-5">
@@ -117,9 +114,29 @@ function alexaProfile({onBack}) {
             </div>
           </div>
         </div>
-        <button className="bg-[#5A639C] text-[#E2BBE9] py-2 px-4 absolute top-[20px] right-[30px] rounded-full">
-          Unfollow
-        </button>
+        {/* Back Button */}
+      <button 
+            onClick={onBack} 
+            className="w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125 absolute top-[10px]"
+          >
+            <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
+      </button>
+      {/* Follow/Unfollow Button */}
+      {isFollowing ? (
+          <button
+            className="bg-[#5A639C] text-[#E2BBE9] py-2 px-4 absolute top-[20px] right-[30px] rounded-full"
+            onClick={() => setShowConfirmUnfollowPopup(true)}
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            className="bg-[#5A639C] text-[#E2BBE9] py-2 px-4 absolute top-[20px] right-[30px] rounded-full"
+            onClick={handleFollow}
+          >
+            Follow
+          </button>
+        )}
       </div>
 
       {/* Bottom Section */}
@@ -209,6 +226,37 @@ function alexaProfile({onBack}) {
           post={selectedPost}
           onClose={() => setSelectedPost(null)} // Close the popup when back button is clicked
         />
+      )}
+
+{showConfirmUnfollowPopup && (
+        <>
+          <div
+            className="fixed inset-0 bg-black opacity-60 backdrop-blur-md z-40"
+            onClick={closeUnfollowPopup}
+          ></div>
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-[#9B86BD] text-[#2F2C50] text-lg p-6 rounded-[25px] w-[400px] min-h-[175px] flex flex-col items-center justify-between">
+              <h3 className="text-[#2F2C50] font-bold text-xl mb-2">Unfollow {user.fullName}?</h3>
+              <p className="text-center mb-4 overflow-y-auto max-h-[100px]">
+                Are you sure you want to unfollow @{user.username}?
+              </p>
+              <div className="flex justify-center space-x-16">
+                <button
+                  onClick={handleUnfollow}
+                  className="border border-[#2F2C50] text-[#2F2C50] px-4 py-2 rounded-[15px] hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+                >
+                  Unfollow
+                </button>
+                <button
+                  onClick={closeUnfollowPopup}
+                  className="border border-[#2F2C50] text-[#2F2C50] px-4 py-2 rounded-[15px] hover:bg-[#2F2C50] hover:text-white transition duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
       )}
     </div>
   );
