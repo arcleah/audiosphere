@@ -190,149 +190,150 @@ function SearchPage() {
                 </div>
               )}
 
-          <div className="bg-[#2F2C50] h-100% rounded-lg p-2">
-            {searchQuery.toLowerCase() === "alexa miller" && (
-              <div className=" ml-[8px] overflow-y-auto max-h-[300px] p-4">
-                {["Alexander", "IDK You Yet", "Cozy"].map((song, index) => (
-                  <div key={index} className="relative mb-12 w-full">
-                    <div 
-                      className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[450px] h-[59px] cursor-pointer"
+      <div className="bg-[#2F2C50] h-100% rounded-lg p-2">
+        {searchQuery.toLowerCase() === "alexa miller" && (
+          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4">
+            {["Alexander", "IDK You Yet", "Cozy"].map((song, index) => (
+              <div key={index} className="relative mb-12 w-full">
+                <div 
+                  className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[450px] h-[59px] cursor-pointer"
+                >
+                  <div className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px] overflow-hidden flex-shrink-0">
+                    <img 
+                      src="/assets/images/sza.svg" // Replace with actual cover image path
+                      alt={`${song} Cover`} 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="ml-4 flex-grow">
+                    <h3 className="text-lg text-[#2F2C50] font-medium">{song}</h3>
+                    <p className="text-[#2F2C50] font-light">Alexa Miller | {index + 3}:0{index + 4}</p>
+                  </div>
+                  <button
+                      className={`transition duration-300 ${
+                        likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
+                      } hover:text-red-500 hover:scale-110 ml-2`}
+                      onClick={() =>
+                        setLikedSongs((prevLikedSongs) =>
+                          prevLikedSongs.includes(song)
+                            ? prevLikedSongs.filter((s) => s !== song)
+                            : [...prevLikedSongs, song]
+                        )
+                      }
+                    >
+                      <svg
+                        className="w-[30px] h-[30px]"
+                        fill={likedSongs.includes(song) ? "red" : "none"}
+                        stroke="black"
+                        strokeWidth="2"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                    </button>
+                    <button 
+                      className="ml-2 cursor-pointer"
                     >
                       <img 
-                        src="/assets/images/sza.svg" // Replace with actual cover image path
-                        alt={`${song} Cover`} 
-                        className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]" 
+                        src={"/assets/icons/circle-play-svgrepo-com copy.svg"}
+                        alt="Play" 
+                        className="w-8 h-8" 
                       />
-                      <div className="ml-4 flex-grow">
-                        <h3 className="text-lg text-[#2F2C50] font-medium">{song}</h3>
-                        <p className="text-[#2F2C50] font-light">Alexa Miller | {index + 3}:0{index + 4}</p>
-                      </div>
-
-                      <button
-                        className={`transition duration-300 ${
-                          likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
-                        } hover:text-red-500 hover:scale-110 ml-2`}
-                        onClick={() =>
-                          setLikedSongs((prevLikedSongs) =>
-                            prevLikedSongs.includes(song)
-                              ? prevLikedSongs.filter((s) => s !== song)
-                              : [...prevLikedSongs, song]
-                          )
-                        }
-                      >
-                        <svg
-                          className="w-[30px] h-[30px]"
-                          fill={likedSongs.includes(song) ? "red" : "none"}
-                          stroke="black"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
-                      </button>
-                      <button 
-                        className="ml-2 cursor-pointer"
-                        >
-                        <img 
-                          src={"/assets/icons/circle-play-svgrepo-com copy.svg"}
-                          alt="Play" 
-                          className="w-8 h-8" 
-                        />
-                      </button>
-                      <img
-                        src={"/assets/icons/circle plus icon.svg"}
-                        alt="Add"
-                        className="w-8 h-8 cursor-pointer ml-2"
-                        onClick={() => handleAddToPlaylist(song)}
-                      />
-                    </div>
+                    </button>
+                    <img
+                      src={"/assets/icons/circle plus icon.svg"}
+                      alt="Add"
+                      className="w-8 h-8 cursor-pointer ml-2"
+                      onClick={() => handleAddToPlaylist(song)}
+                    />
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
+          )}
 
-{searchQuery.toLowerCase() === "frank ocean" && (
-  <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4">
-    {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
-      <div key={index} className="relative mb-12 w-full">
-        <div 
-          className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[450px] h-[59px] cursor-pointer"
-          >
-          <img 
-            src={"/assets/images/frank.svg"} // Assuming you have cover images named like "pink-white-cover.jpg"
-            alt={`${song} Cover`} 
-            className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]" 
-          />
-          <div className="ml-4 flex-grow">
-            <h3 className="text-lg text-[#2F2C50] font-medium">{song}</h3>
-            <p className="text-[#2F2C50] font-light">Frank Ocean | {index + 3}:0{index + 4}</p>
+        {searchQuery.toLowerCase() === "frank ocean" && (
+          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4">
+            {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
+              <div key={index} className="relative mb-12 w-full">
+                <div 
+                  className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[450px] h-[59px] cursor-pointer"
+                  >
+                  <img 
+                    src={"/assets/images/frank.svg"} // Assuming you have cover images named like "pink-white-cover.jpg"
+                    alt={`${song} Cover`} 
+                    className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]" 
+                  />
+                  <div className="ml-4 flex-grow">
+                    <h3 className="text-lg text-[#2F2C50] font-medium">{song}</h3>
+                    <p className="text-[#2F2C50] font-light">Frank Ocean | {index + 3}:0{index + 4}</p>
+                  </div>
+
+                  <button
+                    className={`transition duration-300 ${
+                      likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
+                    } hover:text-red-500 hover:scale-110 ml-2`}
+                    onClick={() =>
+                      setLikedSongs((prevLikedSongs) =>
+                        prevLikedSongs.includes(song)
+                          ? prevLikedSongs.filter((s) => s !== song)
+                          : [...prevLikedSongs, song]
+                      )
+                    }
+                  >
+                    <svg
+                      className="w-[30px] h-[30px]"
+                      fill={likedSongs.includes(song) ? "red" : "none"}
+                      stroke="black"
+                      strokeWidth="2"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                    </svg>
+                  </button>
+                  <button 
+                    className="ml-2 cursor-pointer"
+                  >
+                    <img 
+                      src={"/assets/icons/circle-play-svgrepo-com copy.svg"}
+                      alt="Play" 
+                      className="w-8 h-8" 
+                    />
+                  </button>
+                  <img
+                    src={"/assets/icons/circle plus icon.svg"}
+                    alt="Add"
+                    className="w-8 h-8 cursor-pointer ml-2"
+                    onClick={() => handleAddToPlaylist(song)}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
-
-                      <button
-                        className={`transition duration-300 ${
-                          likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
-                        } hover:text-red-500 hover:scale-110 ml-2`}
-                        onClick={() =>
-                          setLikedSongs((prevLikedSongs) =>
-                            prevLikedSongs.includes(song)
-                              ? prevLikedSongs.filter((s) => s !== song)
-                              : [...prevLikedSongs, song]
-                          )
-                        }
-                      >
-                        <svg
-                          className="w-[30px] h-[30px]"
-                          fill={likedSongs.includes(song) ? "red" : "none"}
-                          stroke="black"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
-                      </button>
-                      <button 
-                        className="ml-2 cursor-pointer"
-                      >
-                        <img 
-                          src={"/assets/icons/circle-play-svgrepo-com copy.svg"}
-                          alt="Play" 
-                          className="w-8 h-8" 
-                        />
-                      </button>
-                      <img
-                        src={"/assets/icons/circle plus icon.svg"}
-                        alt="Add"
-                        className="w-8 h-8 cursor-pointer ml-2"
-                        onClick={() => handleAddToPlaylist(song)}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+        )}
         </div>
 
               </div>
 
               {/* Playlists Section */}
-               <h2 className="text-white mt-8 text-xl">Popular playlists</h2>
-              <div className="grid grid-cols-3 gap-4 mt-4">
-                {playlists.map((playlist, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-300 w-full h-40 rounded-lg relative flex items-center justify-center overflow-hidden"
-                  >
-                    <img
-                      src={playlist.pic}
-                      alt={playlist.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1">
-                      {playlist.name}
-                    </div>
+              <h2 className="text-white font-medium mt-4 text-xl ml-[20px]">Popular playlists</h2>
+            <div className="grid grid-cols-3 gap-4 mt-4">
+              {playlists.map((playlist, index) => (
+                <div
+                  key={index}
+                  className="ml-[20px] rounded-[25px] bg-gray-300 w-[300px] h-40 relative flex items-center justify-center overflow-hidden"
+                >
+                  <img
+                    src={playlist.pic}
+                    alt={playlist.name}
+                    className="w-full h-full object-cover rounded-[25px]"
+                  />
+                  <div className="absolute bottom-0 w-full bg-black bg-opacity-50 text-white text-center py-1">
+                    {playlist.name}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
 
             </>
           )}
