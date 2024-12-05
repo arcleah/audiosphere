@@ -105,7 +105,7 @@ return(
                 </div>
 
                 {/* Playlist Name Section */}
-                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-white">
                     {isEditing ? (
                         <input 
                             type="text"
@@ -137,13 +137,13 @@ return(
 
                 {/* Playlist info in header */}
                 {addedSongs.length > 0 && (
-                  <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
-                      {addedSongs.length} songs | {minutes} min {seconds} sec
+                  <div className="absolute left-[285px] top-[165px] text-white">
+                      {addedSongs.length} songs • {minutes} min {seconds} sec
                   </div>
                 )}
 
                 {addedSongs.length === 0 && (
-                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-[#E2BBE9] opacity-80">
+                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-white opacity-60">
                         This playlist is currently empty...
                     </h1>
                 )}  

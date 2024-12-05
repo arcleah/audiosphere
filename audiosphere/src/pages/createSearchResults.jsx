@@ -113,7 +113,7 @@ const CreateSearchResults = ({ selectedSong, searchQuery, onBack, onSearchQueryC
             className="w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125">
             <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
           </button>
-          <h2 className="text-[#E2BBE9] text-xl font-bold absolute left-1/2 transform -translate-x-1/2 ml-[2px]">Select a song</h2>
+          <h2 className="text-white text-xl font-bold absolute left-1/2 transform -translate-x-1/2 ml-[2px]">Select a song</h2>
           <div className="w-[30px]"></div>
         </div>
 

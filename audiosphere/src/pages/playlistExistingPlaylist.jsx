@@ -157,7 +157,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                     </div>
 
                     {/* Playlist Name Section */}
-                    <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+                    <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-white">
                         {isEditing ? (
                             <input 
                                 type="text"
@@ -185,15 +185,15 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 {/* Playlist Info in Header */}
                 {localSongs.length > 0 && (
 
-                <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
-                    {localSongs.length} songs | {minutes} min {seconds} sec 
+                <div className="absolute left-[285px] top-[165px] text-white">
+                    {localSongs.length} songs • {minutes} min {seconds} sec 
                 </div>
                 )}
 
                 <div className="flex items-center ml-4 mt-4">
 
                 {localSongs.length > 0 && (
-                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-white">|</h1>
                 )}
 
                     {/* Sorting Dropdown */}
@@ -208,7 +208,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                     )}
 
                     {localSongs.length > 0 && (     
-                    <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                    <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-white">|</h1>
                     )}
 
                     {/* Searching Functionality */}
@@ -260,9 +260,9 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
                 <div className="absolute top-[210px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
                     <div className="w-[97px]" />
                     <div className="ml-20 mt-4 flex-grow flex">
-                    <span className="text-[#E2BBE9]  font-medium w-[220px]">Title</span>
-                    <span className="text-[#E2BBE9]  font-medium w-[240px]">Artist</span>
-                    <span className="text-[#E2BBE9]  font-medium w-1/3">Time</span>
+                    <span className="text-white  font-medium w-[220px]">Title</span>
+                    <span className="text-white  font-medium w-[240px]">Artist</span>
+                    <span className="text-white  font-medium w-1/3">Time</span>
                     </div>
                     
                 </div>

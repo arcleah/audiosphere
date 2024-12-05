@@ -24,7 +24,7 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
             <div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
                 {/* Header section */}
                 <div className="absolute top-0 left-0 w-full h-[100px] bg-[#19182D] rounded-t-[25px] flex items-center justify-between px-8">
-                    <h1 className="text-[#E2BBE9] text-3xl font-bold">Your Playlists</h1>
+                    <h1 className="text-white text-3xl font-bold">Your Playlists</h1>
                     
                     {/* Search Bar with Icon */}
                     <div className="relative ml-auto mr-4">
@@ -33,12 +33,12 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
                             placeholder="Search playlists..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
-                            className="rounded-full bg-[#2F2C50] text-[#E2BBE9] placeholder:text-[#E2BBE9] pl-10 pr-4 h-[40px]"
+                            className="rounded-full bg-[#2F2C50] text-white placeholder:text-white placeholder:opacity-70 pl-10 pr-4 h-[40px]"
                         />
                         <img 
                             src="/assets/icons/search-svgrepo-com.svg" // Replace with your search icon path
                             alt="Search"
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#E2BBE9]"
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white"
                         />
                     </div>
 
@@ -59,7 +59,7 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
                 <div className="mt-12 ml-4 max-h-[550px] overflow-y-auto pt-[90px] pb-[20px] p-4">
 
                     {filteredPlaylists.length === 0 && (
-                        <h1 className="absolute top-[130px] text-[18px] text-[#E2BBE9] opacity-80">
+                        <h1 className="absolute top-[130px] text-[18px] text-white opacity-60">
                             Currently no playlists...
                         </h1>
                     )}

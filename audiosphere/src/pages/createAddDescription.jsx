@@ -33,8 +33,9 @@ const CreateAddDescription = ({ selectedSong, onBack, origin }) => {
   // Handler for sharing the post
   const handleShare = () => {
     console.log(`Sharing description for ${selectedSong.title}: ${description}`);
+    // Navigate to the home page
+    navigate('/homepage');
   };
-
   // Handler for play/pause button click
   const handlePlayClick = (e) => {
     e.stopPropagation();
@@ -106,7 +107,7 @@ const CreateAddDescription = ({ selectedSong, onBack, origin }) => {
           >
             <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
           </button>
-          <h2 className="text-[#E2BBE9] text-xl font-bold ml-[50px]">Add a description</h2>
+          <h2 className="text-white text-xl font-bold ml-[50px]">Add a description</h2>
           {/* Share button */}
           <button 
             onClick={handleShare} 

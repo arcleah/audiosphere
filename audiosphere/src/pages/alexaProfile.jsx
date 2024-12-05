@@ -3,7 +3,7 @@ import alexa from "../assets/alexa-miller.jpg";
 import sabrina from "../assets/sabrina.svg";
 import sza from "../assets/sza.svg";
 import frank from "../assets/frank.svg";
-import CommentsPopup from './CommentsPopup'; // Import CommentsPopup
+import CommentsPopup from './commentsPopup'; // Import CommentsPopup
 import ProfilePlaylist from "./profilePlaylist"; // Import ProfilePlaylist
 import playlistpic1 from "../assets/playlist4-pic.jpg";
 import playlistpic2 from "../assets/playlist5-pic.jpg";
@@ -27,7 +27,7 @@ function alexaProfile({onBack}) {
         content: "If you like R&B, you gotta listen to this.",
         thumbnail: sza,
         createdAt: "Oct 29, 2024",
-        song: "Drew Barrymore",
+        song: "Good Days",
         artist: "SZA",
         comments: [
           { user: "Mira", text: "Love this" },
@@ -85,20 +85,20 @@ function alexaProfile({onBack}) {
 
   // Default: Profile Screen
   return (
-    <div className="fixed top-[10%] left-[370px] w-[70%] h-[70%] max-h-[70%] bg-[#2F2C50] rounded-xl p-5 shadow-lg overflow-hidden flex flex-col">
+    <div className="absolute left-[360px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
       {/* Top Section */}
-      <div className="absolute top-0 left-0 w-full h-[40%] bg-[#19182D] p-2 rounded-t-xl">
-        <div className="mt-[0px] flex items-center gap-5">
+      <div className="absolute top-0 left-0 w-full h-[400px] bg-[#19182D] rounded-t-[25px]">
+      <div className="mt-[25px] flex items-center gap-5">
           <img
             src={user.profilePicture}
             alt="Profile"
             className="w-[200px] h-[200px] rounded-full border-4 border-[#19182D] ml-[80px] mr-[20px] object-cover"
           />
           <div>
-            <h3 className="text-white text-4xl font-bold">{user.fullName}</h3>
-            <p className="text-[#E2BBE9]">@{user.username}</p>
-            <p className="text-gray-300">{user.bio}</p>
-            <div className="mt-3 flex gap-12">
+            <h3 className="text-white text-4xl font-bold absolute top-[50px]">{user.fullName}</h3>
+            <p className="text-[#E2BBE9] absolute top-[105px]">@{user.username}</p>
+            <p className="text-gray-300 absolute top-[135px]">{user.bio}</p>
+            <div className="mt-3 flex gap-12 absolute top-[165px] left-[320px]">
               <div className="text-center">
                 <p className="text-xl font-bold text-[#E2BBE9]">{user.posts.length}</p>
                 <p className="text-[#E2BBE9]">Posts</p>
@@ -115,12 +115,12 @@ function alexaProfile({onBack}) {
           </div>
         </div>
         {/* Back Button */}
-      <button 
+        <button 
             onClick={onBack} 
-            className="w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125 absolute top-[10px]"
-          >
+            className="absolute top-4 left-4 w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+        >
             <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
-      </button>
+        </button>
       {/* Follow/Unfollow Button */}
       {isFollowing ? (
           <button
@@ -140,80 +140,118 @@ function alexaProfile({onBack}) {
       </div>
 
       {/* Bottom Section */}
-      <div className="absolute bottom-0 left-0 w-full h-[60%] bg-[#2F2C50] p-6 rounded-b-xl">
-        <h2 className="text-white text-2xl font-bold mb-4">Posts & Playlists</h2>
+      <div className="absolute bottom-0 left-0 w-full h-[60%] bg-[#2F2C50] p-6 rounded-b-[25px]">
+        <h2 className="text-white text-2xl font-bold mb-6 mr-2">Posts & Playlists</h2>
         <div className="flex space-x-4 h-[calc(100%-40px)]">
-          {/* Posts Section */}
-          <div className="w-1/2 bg-[#19182D] p-4 rounded-xl overflow-y-auto">
+        {/* Posts Section */}
+        <div className="w-1/2 bg-[#19182D] p-4 mb-4 rounded-xl flex flex-col h-[280px]"> {/* Adjust height as needed */}
           {/* Custom Scrollbar Styles */}
-        <style>
-          {`
-            ::-webkit-scrollbar {
-              width: 8px;
-            }
-            ::-webkit-scrollbar-thumb {
-              background-color: #6B5DD3;
-              border-radius: 10px;
-              border: 2px solid #3A3955;
-            }
-            ::-webkit-scrollbar-thumb:hover {
-              background-color: #584CC6;
-            }
-            ::-webkit-scrollbar-track {
-              background-color: #2A2945;
-              border-radius: 10px;
-            }
-          `}
-        </style>
+          <style>
+            {`
+              .posts-container::-webkit-scrollbar {
+                width: 8px;
+              }
+              .posts-container::-webkit-scrollbar-thumb {
+                background-color: #6B5DD3;
+                border-radius: 10px;
+                border: 2px solid #3A3955;
+              }
+              .posts-container::-webkit-scrollbar-thumb:hover {
+                background-color: #584CC6;
+              }
+              .posts-container::-webkit-scrollbar-track {
+                background-color: #2A2945;
+                border-radius: 10px;
+              }
+            `}
+          </style>
+
+          {/* Sticky Title */}
+          <div className="flex-shrink-0 mb-4">
             <h3 className="text-[#E2BBE9] text-xl font-semibold">Posts ({user.posts.length})</h3>
-            <div className="mt-[20px] ml-[8px] p-2">
-              {user.posts.map((post) => (
-                <div key={post.id} className="relative mb-10 w-50%">
-                  <div
-                    className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-100% h-[59px] cursor-pointer"
-                    onClick={() => setSelectedPost(post)}
-                  >
-                    <img
+          </div>
+
+          {/* Posts List - Scrollable Area */}
+          <div className="posts-container overflow-y-auto flex-grow p-4">
+            {user.posts.map((post) => (
+              <div key={post.id} className="relative mb-12 w-full">
+                <div 
+                  className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[440px] h-[59px] cursor-pointer"
+                  onClick={() => setSelectedPost(post)}
+                >
+                  <div className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px] overflow-hidden flex-shrink-0">
+                    <img 
                       src={post.thumbnail}
                       alt={`${post.content} Thumbnail`}
-                      className="w-[100px] h-[100px] rounded-full ml-[20px]"
+                      className="w-full h-full object-cover"
                     />
+                  </div>
+                  <div className="ml-4 flex-grow">
+                    <h3 className="text-lg text-[#2F2C50] font-medium">{post.content.slice(0, 20)}</h3>
+                    <p className="text-[#2F2C50] font-light">
+                      {post.song} • {post.artist.slice(0, 5)} | {new Date(post.createdAt).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <img
+                    src="/assets/icons/circle-play-svgrepo-com copy.svg"
+                    alt="View Post"
+                    className="w-10 h-10 ml-auto"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+ {/* Playlists Section */}
+ <div className="w-1/2 bg-transparent p-4 mb-4 rounded-xl flex flex-col h-[280px]">
+            <style>
+              {`
+                .playlists-container::-webkit-scrollbar {
+                  width: 8px;
+                }
+                .playlists-container::-webkit-scrollbar-thumb {
+                  background-color: #6B5DD3;
+                  border-radius: 10px;
+                  border: 2px solid #3A3955;
+                }
+                .playlists-container::-webkit-scrollbar-thumb:hover {
+                  background-color: #584CC6;
+                }
+                .playlists-container::-webkit-scrollbar-track {
+                  background-color: #2A2945;
+                  border-radius: 10px;
+                }
+              `}
+            </style>
+            <div className="flex-shrink-0 mb-4">
+              <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists ({user.playlists.length})</h3>
+            </div>
+            <div className="playlists-container overflow-y-auto flex-grow p-4">
+              {user.playlists.map((playlist) => (
+                <div key={playlist.id} className="relative mb-12 w-full">
+                  <div 
+                    className="flex items-center bg-[#19182D] rounded-[80px] p-4 w-[440px] h-[59px] cursor-pointer"
+                    onClick={() => handlePlaylistClick(playlist)}
+                  >
+                    <div className="w-[97px] h-[97px] rounded-full border-2 border-[#19182D] ml-[20px] overflow-hidden flex-shrink-0">
+                      <img 
+                        src={playlist.pic}
+                        alt={`${playlist.name} Cover`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                     <div className="ml-4 flex-grow">
-                      <h3 className="text-sm text-[#2F2C50] font-small">
-                        {post.content.slice(0, 20)}
-                      </h3>
-                      <p className="text-xs text-[#2F2C50] font-semibold">
-                        {post.song} • {post.artist.slice(0, 5)} | {new Date(post.createdAt).toLocaleDateString()}
-                      </p>
+                      <h3 className="text-[16px] text-white font-medium">{playlist.name}</h3>
+                      <p className="text-white font-light">{playlist.songs.length} songs</p>
                     </div>
                     <img
-                      src="/assets/icons/circle-play-svgrepo-com copy.svg"
-                      alt="View Post"
-                      className="w-10 h-10"
+                      src="/assets/icons/profilePlayButton.svg"
+                      alt="Play Playlist"
+                      className="w-10 h-10 ml-auto"
                     />
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Playlists Section */}
-          <div className="w-1/2 bg-[#2F2C50] p-4 rounded-lg overflow-y-auto">
-            <h3 className="text-[#E2BBE9] text-xl font-semibold">Playlists</h3>
-            <div className="flex flex-col gap-4 mt-3">
-              {user.playlists.map((playlist, index) => (
-                <button
-                  key={index}
-                  onClick={() => handlePlaylistClick(playlist)}
-                  className="flex items-center bg-[#19182D] p-3 rounded-lg text-white text-l hover:bg-[#5A639C] transition-all duration-300"
-                >
-                  <img
-                    src={playlist.pic}
-                    className="w-[70px] h-[70px] rounded-full ml-[20px]"
-                    alt="Playlist Thumbnail"
-                  />
-                  <p className="text-l text-[#E2BBE9] font-semibold p-5">{playlist.name}</p>
-                </button>
               ))}
             </div>
           </div>

@@ -43,8 +43,8 @@ const profilePlaylist = ({ playlist, onBack }) => {
 
   return (
     <div className="relative">
-      <div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
-        {/* Header */}
+            <div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+            {/* Header */}
         <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
           {/* Back Button */}
           <button
@@ -77,6 +77,34 @@ const profilePlaylist = ({ playlist, onBack }) => {
             )}
           </div>
 
+          <button 
+              className="absolute left-[940px] top-[160px] p-2 ml-[28px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125"
+              >
+              <img src="/assets/icons/plus-large-svgrepo-com.svg" alt="Add Song" className="w-4 h-4" />
+          </button>
+
+          <h1 className="absolute left-[290px] top-[168px] text-[55px] text-sm text-white">1 songs • 2 min 37 sec</h1>
+          <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-white">|</h1>
+
+
+          <select value={sortBy} className="absolute left-[280px] top-[165px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px] placeholder:text-[#E2BBE9] mb-2 pl-2 opacity-85 absolute ml-[190px]">
+                        <option value="">Sort By</option>
+                        <option value="title">Title: A-Z</option>
+                        <option value="artist">Artist: A-Z</option>
+                        <option value="duration">Duration</option>
+                        <option value="added">Order Added</option>
+                    </select>
+
+          <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-white">|</h1>
+
+            <button 
+                className="absolute left-[575px] top-[160px] p-2 ml-[28px] mb-2 mt-1 rounded-full bg-[#2F2C50] opacity-85 flex items-center"
+            >
+                <img src="/assets/icons/search-svgrepo-com copy 2.svg" alt="Search" className="w-3 h-3" />
+            </button>
+
+
+
           {/* Edit Button */}
           {isEditing ? (
             <button
@@ -93,7 +121,29 @@ const profilePlaylist = ({ playlist, onBack }) => {
               Edit
             </button>
           )}
+          
         </div>
+
+        {/*header with titles*/}
+        <div className="absolute top-[210px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
+            <div className="w-[97px]" />
+            <div className="ml-20 mt-4 flex-grow flex">
+            <span className="text-white  font-medium w-[220px]">Title</span>
+            <span className="text-white  font-medium w-[240px]">Artist</span>
+            <span className="text-white  font-medium w-1/3">Time</span>
+            </div>
+                    
+                </div>
+
+      <button 
+              className="absolute top-[370px] left-[35px] flex items-center bg-[#E2BBE9] rounded-full p-4 w-[980px] mb-2 h-[59px] opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110"
+              >
+              <div className="relative w-[97px] h-[97px] rounded-full bg-[#E2BBE9] border-2 border-[#2F2C50] ml-[20px] flex items-center justify-center" >
+                  <img src="/assets/icons/plus-large-svgrepo-com copy.svg" alt="Add Song" className="w-10 h-10" />
+              </div>
+              <h1 className="ml-5 text-[20px] text-[#2F2C50]" >Add a song</h1>
+          </button>
+
 
         {/* Playlist Songs */}
         <div className="absolute top-[240px] left-0 right-0 bottom-0 overflow-y-auto max-h-[350px] pb-[20px]">
@@ -109,10 +159,15 @@ const profilePlaylist = ({ playlist, onBack }) => {
                   className="w-[97px] h-[97px] rounded-full border-2 border-[#2F2C50] ml-[20px]"
                 />
                 <div className="ml-4 flex-grow">
-                  <span className="text-[#2F2C50] font-medium ml-[10px] w-[240px] p-2">{song.title}</span>
-                  <span className="text-[#2F2C50] w-[280px] p-8">{song.artist}</span>
+                  <span className="text-[#2F2C50] font-medium w-[240px] pl-[10px] pr-[170px]">{song.title}</span>
+                  <span className="text-[#2F2C50] w-[280px] mr-4 pr-[100px]">{song.artist}</span>
                   <span className="text-[#2F2C50] w-1/3">{song.duration}</span>
                 </div>
+                
+                <button className="mr-[12px]">
+                    <img src="/assets/icons/pen-circle-svgrepo-com.svg" alt="Remove" className="w-10 h-10" />
+                </button>
+
                 <button
                   className="ml-auto cursor-pointer"
                   onClick={() => togglePlayPause(song.id)}
@@ -127,7 +182,14 @@ const profilePlaylist = ({ playlist, onBack }) => {
                     className="w-10 h-10 mr-[10px]"
                   />
                 </button>
+
+                <button className="ml-auto">
+                    <img src="/assets/icons/circle-minus-svgrepo-com.svg" alt="Remove" className="w-10 h-10" />
+                </button>
+
+                
               </div>
+              
             ))}
           </div>
         </div>
