@@ -8,13 +8,38 @@ import playlistpic1 from "../assets/playlist1-pic.jpg";
 import playlistpic2 from "../assets/playlist2-pic.jpg";
 import playlistpic3 from "../assets/playlist3-pic.jpg";
 import play from "../assets/icons/play-svgrepo-com.svg";
+import frankOcean from "../assets/frank.svg"; // Add Frank Ocean's image
 
 
 function SearchPage() {
   const [searchQuery, setSearchQuery] = useState(''); // State for search input
   const [showResults, setShowResults] = useState(false); // State to toggle result display
   const [viewAlexaProfile, setViewAlexaProfile] = useState(false); // State to show Alexa's profile
+  const [likedSongs, setLikedSongs] = useState([]); // Track liked songs
+  const [showAddToPlaylistPopup, setShowAddToPlaylistPopup] = useState(false); // Control popup visibility
+  const [selectedSong, setSelectedSong] = useState(null); // Track selected song
+  const [newPlaylistName, setNewPlaylistName] = useState(""); // Input for new playlist name
 
+  const handleAddToPlaylist = (song) => {
+    setSelectedSong(song); // Set the selected song
+    setShowAddToPlaylistPopup(true); // Show the modal
+  };
+  
+  const handleAddSongToPlaylist = (playlistName) => {
+    console.log(`Added "${selectedSong}" to "${playlistName}"`);
+    setShowAddToPlaylistPopup(false); // Close modal
+  };
+  
+  const handleCreateNewPlaylist = () => {
+    if (!newPlaylistName.trim()) {
+      alert("Please enter a playlist name");
+      return;
+    }
+  
+    console.log(`Created playlist "${newPlaylistName}" and added "${selectedSong}"`);
+    setNewPlaylistName(""); // Clear input
+    setShowAddToPlaylistPopup(false); // Close modal
+  };
 
   const playlists = [
     { name: "Dreamy", pic: playlistpic1 },
@@ -28,11 +53,11 @@ function SearchPage() {
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    if (searchQuery.toLowerCase() === 'alexa miller') {
-      setShowResults(true); // Show hardcoded results for "Alexa Miller"
+    if (searchQuery.toLowerCase() === "alexa miller" || searchQuery.toLowerCase() === "frank ocean") {
+      setShowResults(true); // Show hardcoded results for "Alexa Miller" or "Frank Ocean"
     } else {
       setShowResults(false); // Hide results for other searches
-      alert('No results found for this search.'); // Optional: Show feedback
+      alert("No results found for this search."); // Optional: Show feedback
     }
   };
 
@@ -152,39 +177,89 @@ function SearchPage() {
             <>
               <h2 className="text-white mt-8 text-xl">Search result</h2>
               <div className="grid grid-cols-2 gap-6 mt-4">
-                {/* Profile Box */}
-                <div
-                  className="bg-[#19182D] rounded-lg p-4 flex items-center cursor-pointer"
-                  onClick={() => setViewAlexaProfile(true)} // Set state to view Alexa's profile
-                >
-                  <img
-                    src={alexa}
-                    alt="Alexa Miller"
-                    className="w-[150px] h-[150px] rounded-full"
-                  />
-                  <div className="ml-4">
-                    <h3 className="text-white text-lg font-bold">Alexa Miller</h3>
-                    <p className="text-white text-sm opacity-80">Profile</p>
+                {/* Alexa Miller Profile */}
+                {searchQuery.toLowerCase() === "alexa miller" && (
+                  <div
+                    className="bg-[#19182D] rounded-lg p-4 flex items-center cursor-pointer"
+                    onClick={() => setViewAlexaProfile(true)} // Set state to view Alexa's profile
+                  >
+                    <img
+                      src={alexa}
+                      alt="Alexa Miller"
+                      className="w-[150px] h-[150px] rounded-full"
+                    />
+                    <div className="ml-4">
+                      <h3 className="text-white text-lg font-bold">Alexa Miller</h3>
+                      <p className="text-white text-sm opacity-80">Profile</p>
+                    </div>
                   </div>
-                </div>
+                )}
+
+                {/* Frank Ocean Artist */}
+                {searchQuery.toLowerCase() === "frank ocean" && (
+                  <div className="bg-[#19182D] rounded-lg p-4 flex items-center">
+                    <img
+                      src={frankOcean}
+                      alt="Frank Ocean"
+                      className="w-[150px] h-[150px] rounded-full"
+                    />
+                    <div className="ml-4">
+                      <h3 className="text-white text-lg font-bold">Frank Ocean</h3>
+                      <p className="text-white text-sm opacity-80">Artist</p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Song List */}
                 <div className="bg-[#19182D] rounded-lg p-4">
-                  {['Pink + White', 'White Ferrari', 'Thinking bout you'].map((song, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between bg-purple-300 p-2 rounded-lg mb-2"
-                    >
-                      <p className="text-black">{song}</p>
-                      <div className="flex items-center space-x-2">
-                        <p className="text-black">{index + 3}:0{index + 4}</p>
-                        <img src={play} className="w-6 h-6 cursor-pointer"/>
-                        <img src={heart} alt="Heart" className="w-6 h-6 cursor-pointer" />
-                        <img src={plus} alt="Add" className="w-6 h-6 cursor-pointer" />
-                      </div>
-                    </div>
-                  ))}
-                </div>
+  {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
+    <div
+      key={index}
+      className="flex items-center justify-between bg-purple-300 p-2 rounded-lg mb-2"
+    >
+      <p className="text-black">{song}</p>
+      <div className="flex items-center space-x-2">
+        <p className="text-black">{index + 3}:0{index + 4}</p>
+
+        {/* Play Button */}
+        <img src={play} alt="Play" className="w-6 h-6 cursor-pointer" />
+
+        {/* Heart Icon */}
+        <button
+          className={`transition duration-300 ${
+            likedSongs.includes(song) ? "text-red-500 scale-125" : "text-gray-300"
+          } hover:text-red-500 hover:scale-110`}
+          onClick={() =>
+            setLikedSongs((prevLikedSongs) =>
+              prevLikedSongs.includes(song)
+                ? prevLikedSongs.filter((s) => s !== song) // Unlike the song
+                : [...prevLikedSongs, song] // Like the song
+            )
+          }
+        >
+          <svg
+            className="w-6 h-6"
+            fill={likedSongs.includes(song) ? "red" : "none"}
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+        </button>
+
+        {/* Plus Icon */}
+        <img
+          src={plus}
+          alt="Add"
+          className="w-6 h-6 cursor-pointer"
+          onClick={() => handleAddToPlaylist(song)}
+        />
+      </div>
+    </div>
+  ))}
+</div>
+
               </div>
 
               {/* Playlists Section */}
@@ -210,6 +285,58 @@ function SearchPage() {
             </>
           )}
         </main>
+        {/* Add to Playlist Modal */}
+{showAddToPlaylistPopup && (
+  <>
+    {/* Backdrop */}
+    <div 
+      className="fixed inset-0 bg-black opacity-50 z-40" 
+      onClick={() => setShowAddToPlaylistPopup(false)}
+    ></div>
+
+    {/* Modal */}
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      <div className="bg-[#19182D] p-6 rounded-lg shadow-lg w-[400px]">
+        <h2 className="text-white text-xl font-bold mb-4">Add to Playlist</h2>
+        
+        {/* Existing Playlists */}
+<div className="mb-4">
+  <h3 className="text-white text-lg mb-2">Select Existing Playlist:</h3>
+  <button
+    className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
+    onClick={() => handleAddSongToPlaylist("its a bop")}
+  >
+    its a bop
+  </button>
+  <button
+    className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
+    onClick={() => handleAddSongToPlaylist("lofi")}
+  >
+    lofi
+  </button>
+</div>
+
+        {/* Create New Playlist */}
+        <div className="mt-4">
+          <h3 className="text-white text-lg mb-2">Create New Playlist:</h3>
+          <input
+            type="text"
+            placeholder="New Playlist Name"
+            value={newPlaylistName}
+            onChange={(e) => setNewPlaylistName(e.target.value)}
+            className="w-full p-2 rounded-lg bg-purple-300 text-[#19182D] placeholder-gray-500 focus:outline-none"
+          />
+          <button
+            className="mt-2 w-full bg-green-500 text-white rounded-lg p-2 hover:bg-green-600 transition"
+            onClick={handleCreateNewPlaylist}
+          >
+            Create Playlist
+          </button>
+        </div>
+      </div>
+    </div>
+  </>
+)}
       </div>
     </div>
   );

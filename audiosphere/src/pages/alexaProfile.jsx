@@ -18,7 +18,7 @@ function alexaProfile({onBack}) {
   const user = {
     fullName: "Alexa Miller",
     username: "itsalexa",
-    bio: "music major!",
+    bio: "music major! 📚",
     profilePicture: alexa,
     posts: [
       {
@@ -118,7 +118,7 @@ function alexaProfile({onBack}) {
           </div>
         </div>
         <button className="bg-[#5A639C] text-[#E2BBE9] py-2 px-4 absolute top-[20px] right-[30px] rounded-full">
-          Edit Profile
+          Unfollow
         </button>
       </div>
 
