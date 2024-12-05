@@ -64,7 +64,7 @@ const profilePlaylist = ({ playlist, onBack }) => {
           </div>
 
           {/* Playlist Name */}
-          <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+          <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-white">
             {isEditing ? (
               <input
                 type="text"

@@ -23,6 +23,10 @@ const MusicPopup = ({ post, onClose }) => {
     navigate("/playlist"); // Navigate to the Playlist page
   };
 
+  const handleCreateClick = () => {
+    navigate("/create"); // Navigate to the Create page
+  };
+
   const artistImages = {
     "Frank Ocean": frank,
     SZA: SZA,
@@ -119,6 +123,14 @@ const MusicPopup = ({ post, onClose }) => {
                   strokeWidth="2"
                 />
               </svg>
+            </button>
+
+            {/* Create Button */}
+            <button
+              onClick={handleCreateClick}
+              className={`p-3 rounded-full text-gray-300 hover:text-purple-500 transition duration-300 border-2 border-transparent hover:border-blue-500`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="14 2 18 6 7 17 3 17 3 13 14 2"></polygon><line x1="3" y1="22" x2="21" y2="22"></line></svg>
             </button>
           </div>
         </div>

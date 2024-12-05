@@ -14,6 +14,8 @@ const HomePage = () => {
   const [isCommentPopupVisible, setIsCommentPopupVisible] = useState(false);
   const [currentPost, setCurrentPost] = useState(null); // Store the current post data
   const [isMusicPopupVisible, setIsMusicPopupVisible] = useState(false); // State for controlling music popup
+  const [showConfirmDeletePopup, setShowConfirmDeletePopup] = useState(false); // Track popup visibility
+
 
   const handleLike = (postId) => {
     setLikedPosts((prevLikedPosts) => ({
@@ -42,6 +44,12 @@ const HomePage = () => {
     setIsCommentPopupVisible(false); // Close the comment popup
     setCurrentPost(null); // Reset the current post data
     setIsMusicPopupVisible(false); // Close the music popup
+    setShowConfirmDeletePopup(false);
+
+  };
+
+  const handleDelete = () => {
+    setShowConfirmDeletePopup(true);
   };
 
   const posts = [
@@ -230,6 +238,31 @@ const HomePage = () => {
                     )}
                   </div>
                 )}
+
+
+                {/* Conditional Delete Icon */}
+                {post.username === "@mira.hart" && (
+                  <button
+                    onClick={handleDelete} 
+                    className="ml-2 p-1 rounded-full"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="ml-[310px] w-6 h-6 text-grey-300 hover:text-gray-700"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M5 4h14M6 4v16a2 2 0 002 2h8a2 2 0 002-2V4M9 4V2a1 1 0 011-1h4a1 1 0 011 1v2"
+                        />
+                      </svg>
+                  </button>
+                )}
+
               </div>
             </div>
           </div>
@@ -243,6 +276,34 @@ const HomePage = () => {
         {isMusicPopupVisible && (
           <MusicPopup post={currentPost} onClose={handleClosePopup} />
         )}
+
+        {showConfirmDeletePopup && (
+        <>
+          <div className="ml-[300px] absolute bottom-[200px] fixed inset-0 flex items-center justify-center z-50">
+            <div className="bg-[#19182D] text-white text-lg p-6 rounded-[25px] w-[400px] min-h-[175px] flex flex-col items-center justify-between">
+              <h3 className="text-white font-bold text-xl mb-2">Delete post?</h3>
+              <p className="text-center mb-4 overflow-y-auto max-h-[100px]">
+                Are you sure you want to delete this post?
+              </p>
+              <div className="flex justify-center space-x-16">
+                <button
+                  onClick={handleClosePopup}
+                  className="border border-white text-white px-4 py-2 rounded-[15px] hover:border-red-500 hover:bg-red-500 hover:text-white transition duration-200"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={handleClosePopup}
+                  className="border border-white text-white px-4 py-2 rounded-[15px] hover:bg-[#E2BBE9] hover:border-[#E2BBE9] hover:text-[#19182D] transition duration-200"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
       </div>
     </div>
   );
