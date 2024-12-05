@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import sabrina from "../assets/sabrina.svg";
+import frank from "../assets/frank.svg";
+import kanye from "../assets/kanye.svg";
+import SZA from "../assets/sza.svg";
+import jackie from "../assets/jackie.svg";
 
 const CommentsPopup = ({ post, onClose }) => {
   const [comments, setComments] = useState([
     { user: "Alexa", text: "2 mins ago", content: "Mid" },
+    { user: "Jessica", text: "1 min ago", content: "Great post!" },
   ]);
   const [newComment, setNewComment] = useState("");
+
+  // Function to get the correct artist image based on the artist name
+  const getArtistImage = (artist) => {
+    switch (artist) {
+      case "Frank Ocean":
+        return frank;
+      case "SZA":
+        return SZA;
+      case "Sabrina Carpenter":
+        return sabrina;
+      case "Kanye West":
+        return kanye;
+      default:
+        return jackie; // Default image if the artist is not listed
+    }
+  };
 
   const handleAddComment = () => {
     if (newComment.trim()) {
@@ -14,6 +35,15 @@ const CommentsPopup = ({ post, onClose }) => {
         { user: "Mira", text: "Just now", content: newComment },
       ]);
       setNewComment("");
+    }
+  };
+
+  const handleRemoveComment = (index) => {
+    const commentToRemove = comments[index];
+    // Ensure Mira can only remove her own comments
+    if (commentToRemove.user === "Mira") {
+      const updatedComments = comments.filter((_, idx) => idx !== index);
+      setComments(updatedComments);
     }
   };
 
@@ -86,14 +116,13 @@ const CommentsPopup = ({ post, onClose }) => {
         <div className="flex flex-col items-center mb-6">
           <div className="rounded-full overflow-hidden w-24 h-24 mb-4">
             <img
-              src={sabrina}
-              alt="Profile"
+              src={getArtistImage(post.artist)} // Dynamically choose artist image
+              alt={post.artist}
               className="w-full h-full object-cover"
             />
           </div>
           <div className="text-center">
             <h4 className="text-lg font-semibold">{post.song}</h4>
-            {/* Updated duration */}
             <p className="text-sm text-gray-400">{post.artist} | 2:37</p>
           </div>
           <button className="mt-2 bg-[#6B5DD3] hover:bg-[#584CC6] text-white rounded-full px-4 py-2 flex items-center gap-2">
@@ -129,7 +158,28 @@ const CommentsPopup = ({ post, onClose }) => {
                   </span>
                   <p className="text-gray-300">{comment.content}</p>
                 </div>
-                {/* No timestamp inside the comment box */}
+                {/* Trashcan Icon for Removing Comment */}
+                {comment.user === "Mira" && (
+                  <button
+                    onClick={() => handleRemoveComment(index)}
+                    className="ml-2 p-1 rounded-full hover:bg-gray-600 transition"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      className="w-6 h-6 text-gray-500 hover:text-gray-700"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 4h14M6 4v16a2 2 0 002 2h8a2 2 0 002-2V4M9 4V2a1 1 0 011-1h4a1 1 0 011 1v2"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
             </div>
           ))}
