@@ -79,7 +79,7 @@ function ProfilePage() {
 
   // Default: Profile Screen
   return (
-    <div className="fixed top-[15%] right-[30px] w-[70%] h-[70%] max-h-[70%] bg-[#2F2C50] rounded-xl p-5 shadow-lg overflow-hidden flex flex-col">
+    <div className="fixed top-[10%] left-[370px] w-[70%] h-[70%] max-h-[70%] bg-[#2F2C50] rounded-xl p-5 shadow-lg overflow-hidden flex flex-col">
       {/* Top Section */}
       <div className="absolute top-0 left-0 w-full h-[40%] bg-[#19182D] p-2 rounded-t-xl">
         <div className="mt-[0px] flex items-center gap-5">
