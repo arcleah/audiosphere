@@ -104,7 +104,10 @@ const HomePage = () => {
             key={post.id}
             className="ml-[25px] group bg-[#7776B3] rounded-full p-4 h-[120px] w-[1000px] flex items-center gap-4 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196] relative mb-12"
           >
-            <div className="absolute bottom-[90px] left-[100px] w-100 h-14 flex-shrink-0 group-hover:scale-105 transition duration-300 overflow-visible" style={{ transform: 'translateX(-25%)' }}>
+            <div
+              className="absolute bottom-[90px] left-[100px] w-100 h-14 flex-shrink-0 group-hover:scale-105 transition duration-300 overflow-visible"
+              style={{ transform: "translateX(-25%)" }}
+            >
               <img
                 src={
                   post.artist === "Frank Ocean"
@@ -156,7 +159,9 @@ const HomePage = () => {
                 <span className="font-semibold text-white text-sm">
                   {post.username}
                 </span>
-                <span className="text-xs text-gray-300 mr-[40px]">{post.date}</span>
+                <span className="text-xs text-gray-300 mr-[40px]">
+                  {post.date}
+                </span>
               </div>
 
               {post.content && (
@@ -228,7 +233,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-      ))}
+        ))}
         {/* Render Comments Popup */}
         {isCommentPopupVisible && (
           <CommentsPopup post={currentPost} onClose={handleClosePopup} />
