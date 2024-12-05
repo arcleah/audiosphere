@@ -75,7 +75,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
 
     return (
         <div className="relative">
-            <div className="absolute left-[85px] top-[20px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+            <div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
             {/* Header section */}
             <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                 <button 
@@ -226,7 +226,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
           )}
 
           {/* Content area */}
-          <div className="absolute top-[240px] left-0 right-0 bottom-0 overflow-y-auto max-h-[350px] pb-[20px]">
+          <div className="absolute top-[230px] left-0 right-0 bottom-0 overflow-y-auto max-h-[350px] pb-[20px]">
              <div className="p-4 ml-5">
               {sortedSongs.map((song) => (
                 <div key={song.instanceId} className="flex items-center bg-[#9B86BD] rounded-[80px] p-4 w-[980px] h-[59px] mb-12">
@@ -268,7 +268,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
               {/* Add a song button */}
               <button 
                 {...addedSongs.length == 0 && (
-                    <h1 className="absolute top-[270px] left-[166px] w-full h-[38px] text-[#E2BBE9] text-[20px] font-medium bg-[#2F2C50] z-10 flex items-center px-4 opacity-90">This playlist is currently empty...</h1>
+                    <h1 className="absolute top-[260px] left-[166px] w-full h-[38px] text-[#E2BBE9] text-[20px] font-medium bg-[#2F2C50] z-10 flex items-center px-4 opacity-90">This playlist is currently empty...</h1>
                 )}
                 className="mt-[2px] flex items-center bg-[#E2BBE9] rounded-full p-4 w-[980px] mb-2 h-[59px] opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110"
                 onClick={onAddSong}

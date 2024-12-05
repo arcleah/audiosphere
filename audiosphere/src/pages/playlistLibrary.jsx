@@ -21,7 +21,7 @@ const PlaylistLibrary = ({ onCreatePlaylist, playlists, onRemovePlaylist, onSele
 
     return (
         <div className="relative">
-            <div className="absolute left-[85px] top-[20px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+            <div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
                 {/* Header section */}
                 <div className="absolute top-0 left-0 w-full h-[100px] bg-[#19182D] rounded-t-[25px] flex items-center justify-between px-8">
                     <h1 className="text-[#E2BBE9] text-3xl font-bold">Your Playlists</h1>

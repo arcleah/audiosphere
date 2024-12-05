@@ -9,6 +9,13 @@ const MusicBar = () => {
   const [previousVolume, setPreviousVolume] = useState(50); // Store previous volume level
   const [isShuffled, setIsShuffled] = useState(false);
   const [isRepeating, setIsRepeating] = useState(false);
+
+    // Hardcoded song information
+    const currentSong = {
+        title: "Taste",
+        artist: "Sabrina Carpenter",
+        albumCover: "/assets/images/taste sabrina.jpeg" // Replace with actual path to album cover
+      };
   
 
   useEffect(() => {
@@ -79,7 +86,17 @@ const MusicBar = () => {
 
   return (
     <div className="music-bar bg-[#2F2C50] h-[120px] fixed bottom-0 left-0 right-0 flex items-center justify-between p-2">
-      <div className="flex flex-col items-center music-controls-container space-y-1">
+
+      {/* Currently Playing Song Display */}
+      <div className="w-[500px] flex items-center space-x-2">
+        <img src={currentSong.albumCover} alt="Album Cover" className="w-[90px] h-[90px] rounded-full ml-6" />
+        <div className="flex flex-col">
+          <span className="text-white  font-bold ml-2">{currentSong.title}</span>
+          <span className="text-sm ml-2 mt-2 text-[#E2BBE9]">{currentSong.artist}</span>
+        </div>
+      </div>
+      
+      <div className="absolute left-[50px] flex flex-col items-center music-controls-container space-y-1">
         <div className="flex space-x-2">
           <button id="shuffleBtn" className={`music-control ${isShuffled ? 'active' : ''}`}>
             <img src="/assets/icons/shuffle-svgrepo-com.svg" alt="Shuffle" className="w-[20px]" />
