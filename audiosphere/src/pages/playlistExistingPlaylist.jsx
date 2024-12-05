@@ -132,7 +132,7 @@ const ExistingPlaylistPage = ({ playlist, onBack, onRemoveSong, setCurrentPlayli
 
     return (
         <div className="relative">
-            <div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+            <div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
             {/*header*/}
                 <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                     {/*back button*/}

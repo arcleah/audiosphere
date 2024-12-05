@@ -4,6 +4,7 @@ import CreateSelectSong from './createSelectSong'; // Import SelectSong componen
 import CreateSearchResults from './createSearchResults'; // Import SearchResults component
 import CreateAddDescription from './createAddDescription'; // Import Add Description component
 
+
 const CreatePost = () => {
   const location = useLocation();
   const [currentScreen, setCurrentScreen] = useState(location.state?.initialScreen || 'selectSong'); // State to manage current screen

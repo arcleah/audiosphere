@@ -88,7 +88,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="max-w-6xl mx-auto py-2">
+    <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-10 flex-1 overflow-auto max-h-[650px]">
       {/* Mira's profile image positioned at the top right corner */}
       <div className="absolute top-4 right-4">
         <img
@@ -98,13 +98,13 @@ const HomePage = () => {
         />
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-24">
         {posts.map((post) => (
           <div
             key={post.id}
-            className="group bg-[#7776B3] rounded-full p-4 flex items-center gap-4 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196]"
+            className="ml-[25px] group bg-[#7776B3] rounded-full p-4 h-[120px] w-[1000px] flex items-center gap-4 shadow-lg transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl hover:bg-[#6C7196] relative mb-12"
           >
-            <div className="relative w-24 h-24 flex-shrink-0 group-hover:scale-105 transition duration-300">
+            <div className="absolute bottom-[90px] left-[100px] w-100 h-14 flex-shrink-0 group-hover:scale-105 transition duration-300 overflow-visible" style={{ transform: 'translateX(-25%)' }}>
               <img
                 src={
                   post.artist === "Frank Ocean"
@@ -118,10 +118,10 @@ const HomePage = () => {
                     : jackie
                 }
                 alt="Profile"
-                className="w-full h-full rounded-full object-cover transition duration-300 transform group-hover:scale-110 group-hover:shadow-lg"
+                className="w-[200px] h-[200px] rounded-full object-cover transition duration-300 transform group-hover:scale-110 group-hover:shadow-lg z-10 group-hover:z-20"
               />
               <button
-                className="absolute inset-0 flex items-center justify-center bg-transparent hover:bg-black/40 hover:bg-opacity-40 rounded-full transition duration-300 z-10"
+                className="w-[200px] h-[200px] absolute inset-0 flex items-center justify-center bg-transparent hover:bg-black/40 hover:bg-opacity-40 rounded-full transition duration-300 z-10"
                 onClick={() => handlePlayPause(post.id)}
               >
                 {playingPostId === post.id ? (
@@ -152,20 +152,20 @@ const HomePage = () => {
             </div>
 
             <div className="flex-1 min-w-0 ml-2">
-              <div className="flex items-center justify-between mb-3 flex-shrink-0">
+              <div className="ml-[250px] flex items-center justify-between mb-3 flex-shrink-0">
                 <span className="font-semibold text-white text-sm">
                   {post.username}
                 </span>
-                <span className="text-xs text-gray-300 ml-2">{post.date}</span>
+                <span className="text-xs text-gray-300 mr-[40px]">{post.date}</span>
               </div>
 
               {post.content && (
-                <p className="text-sm text-white mb-4 break-words">
+                <p className="ml-[250px] text-sm text-white mb-4 break-words">
                   {post.content}
                 </p>
               )}
 
-              <div className="flex items-center gap-5 text-sm text-gray-300">
+              <div className="ml-[250px] flex items-center gap-5 text-sm text-gray-300">
                 <button
                   className={`transition duration-300 ${
                     likedPosts[post.id]
@@ -228,8 +228,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-        ))}
-
+      ))}
         {/* Render Comments Popup */}
         {isCommentPopupVisible && (
           <CommentsPopup post={currentPost} onClose={handleClosePopup} />

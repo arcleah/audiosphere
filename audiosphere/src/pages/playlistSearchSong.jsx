@@ -70,7 +70,7 @@ const PlaylistSearchSong = ({ onBack, addedSongs, onSearchQueryChange, onAddSong
 
     return (
 <div className="relative">
-<div className="absolute left-[85px] top-[30px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
+<div className="absolute left-[85px] top-[10px] w-[1050px] h-[630px] bg-[#2F2C50] rounded-[25px]">
 {/* Header section */}
             <div className="absolute top-0 left-0 w-full h-[200px] bg-[#19182D] rounded-t-[25px]">
                 <button 
@@ -147,7 +147,7 @@ const PlaylistSearchSong = ({ onBack, addedSongs, onSearchQueryChange, onAddSong
         </div>
 
         {/* Search box styled like a button */}
-        <div className="absolute top-[272px] absolute left-[105px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
+        <div className="absolute top-[242px] absolute left-[105px] left-0 p-4 opacity-80 transition duration-300 ease-in-out hover:filter hover:brightness-110">
           <div className="relative w-full">
             <form onSubmit={handleSearch}> {/* Use form to handle submit */}
               <div 
@@ -188,7 +188,7 @@ const PlaylistSearchSong = ({ onBack, addedSongs, onSearchQueryChange, onAddSong
                 onClick={handleOverlayClick} 
               ></div>
               {/* Popup */}
-              <div className="absolute top-[383px] absolute left-[900px] transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-auto focus:outline-none flex justify-between items-center z-50">
+              <div className="absolute top-[300px] absolute left-[600px] transform -translate-x-1/2 -translate-y-1/2 rounded-[25px] bg-[#9B86BD] text-[#2F2C50] text-lg pl-5 pt-2 pb-2 w-[500px] h-auto focus:outline-none flex justify-between items-center z-50">
                 <div className="flex flex-col items-start justify-center text-center">
                 <p className="text-[#2F2C50] font-bold ml-[160px]">We're sorry!</p>
                 <p className="text-[#2F2C50]">Unfortunately, this song is currently not available to add to a playlist.</p>
