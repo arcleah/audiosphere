@@ -104,7 +104,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                 </div>
 
                 {/* Playlist Name Section */}
-                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-[#E2BBE9]">
+                <div className="absolute left-[280px] top-[45px] text-[40px] font-bold text-white">
                     {isEditing ? (
                         <input 
                             type="text"
@@ -120,7 +120,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                 {/* Edit button */}
                 {isEditing ? (
                     <button onClick={handleSaveClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
-                    bg-[#2F2C50] text-[#E2BBE9] font-medium flex items-center justify-center transition duration-300 ease-in-out 
+                    bg-[#2F2C50] text-white  font-medium flex items-center justify-center transition duration-300 ease-in-out 
                     hover:filter hover:brightness-125">Save</button>
                 ) : (
                     <button onClick={handleEditClick} className="absolute left-[285px] top-[115px] w-[60px] h-[30px] rounded-full 
@@ -137,13 +137,13 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                     
                 {/* Playlist info in header */}
                 {addedSongs.length > 0 && (
-                    <div className="absolute left-[285px] top-[165px] text-[#E2BBE9]">
-                        {addedSongs.length} songs | {minutes} min {seconds} sec 
+                    <div className="absolute left-[285px] top-[165px] text-white">
+                        {addedSongs.length} songs • {minutes} min {seconds} sec 
                     </div>
                 )}
 
                 {addedSongs.length === 0 && (
-                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-[#E2BBE9] opacity-80">
+                    <h1 className="absolute top-[165px] left-[285px] text-[16px] text-white opacity-60">
                         This playlist is currently empty...
                     </h1>
                 )}  
@@ -155,7 +155,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
         <div className="flex items-center ml-4">
 
             {addedSongs.length > 0 && (
-                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                <h1 className="absolute left-[460px] top-[168px] text-[55px] text-sm text-white">|</h1>
             )}
 
             {/* Dropdown menu for sorting */}
@@ -170,7 +170,7 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
             )}
 
             {addedSongs.length > 0 && (
-                <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-[#E2BBE9]">|</h1>
+                <h1 className="absolute left-[590px] top-[168px] text-[55px] text-sm text-white">|</h1>
             )}
 
             {/* Search functionality */}
@@ -190,8 +190,8 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
                         placeholder="Search your playlist..." 
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-[180px] h-[25px] rounded-full bg-[#2F2C50] text-[#E2BBE9] text-[14px]
-                                placeholder:text-[#E2BBE9]
+                        className="w-[180px] h-[25px] rounded-full bg-[#2F2C50] text-white text-[14px]
+                                placeholder:text-white placeholder:opacity-70
                                 pl-8 mb-8  opacity-85 absolute ml-[190px]"
                         style={{ outline: 'none' }} // Inline style to remove outline
                     />
@@ -217,9 +217,9 @@ const PlaylistNewPlaylist = ({ onBack, addedSongs, onAddSong, onRemoveSong, curr
           <div className="absolute top-[200px] left-0 w-full h-[28px] bg-[#2F2C50] z-10 flex items-center px-4">
             <div className="w-[97px]" />
             <div className="ml-16 mt-6 flex-grow flex">
-              <span className="text-[#E2BBE9]  font-medium ml-[10px] w-[220px]">Title</span>
-              <span className="text-[#E2BBE9]  font-medium w-[290px]">Artist</span>
-              <span className="text-[#E2BBE9]  font-medium w-1/3">Time</span>
+              <span className="text-white  font-medium ml-[10px] w-[220px]">Title</span>
+              <span className="text-white  font-medium w-[290px]">Artist</span>
+              <span className="text-white  font-medium w-1/3">Time</span>
             </div>
             
           </div>
