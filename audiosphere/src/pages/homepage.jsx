@@ -8,7 +8,7 @@ import CommentsPopup from "./commentsPopup";
 import MusicPopup from "./musicPopup"; // Import the MusicPopup component
 import mira from "../assets/mira.svg";
 
-const HomePage = () => {
+const HomePage = ({ onLogout }) => {
   const [likedPosts, setLikedPosts] = useState({});
   const [playingPostId, setPlayingPostId] = useState(null);
   const [isCommentPopupVisible, setIsCommentPopupVisible] = useState(false);
@@ -90,12 +90,18 @@ const HomePage = () => {
   return (
     <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-10 flex-1 overflow-auto max-h-[650px]">
       {/* Mira's profile image positioned at the top right corner */}
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 flex items-center gap-4">
         <img
           src={mira}
           alt="Mira's Profile"
           className="w-12 h-12 rounded-full"
         />
+        <button
+          onClick={onLogout}
+          className="px-4 py-2 bg-gradient-to-r from-[#9b86bd] to-[#e2bbe9] text-white font-semibold rounded-lg shadow-lg hover:from-[#9B59B6] hover:to-[#8E44AD] hover:shadow-xl hover:scale-110 transition transform"
+        >
+          Logout
+        </button>
       </div>
 
       <div className="space-y-24">
