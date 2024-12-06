@@ -85,7 +85,7 @@ const MusicBar = () => {
   };
 
   return (
-    <div className="music-bar bg-[#2F2C50] h-[120px] fixed bottom-0 left-0 right-0 flex items-center justify-between p-2">
+    <div className="music-bar bg-[#2F2C50] h-[120px] fixed bottom-0 left-0 right-0 flex items-center justify-between p-2 z-20">
 
       {/* Currently Playing Song Display */}
       <div className="w-[500px] flex items-center space-x-2">
