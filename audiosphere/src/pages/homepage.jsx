@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import sabrina from "../assets/sabrina.svg";
 import frank from "../assets/frank.svg";
-import kanye from "../assets/kanye.svg";
-import SZA from "../assets/sza.svg";
 import jackie from "../assets/jackie.svg";
+import kanye from "../assets/kanye.svg";
+import mira from "../assets/mira.svg";
+import sabrina from "../assets/sabrina.svg";
+import SZA from "../assets/sza.svg";
 import CommentsPopup from "./commentsPopup";
 import MusicPopup from "./musicPopup"; // Import the MusicPopup component
-import mira from "../assets/mira.svg";
 
 const HomePage = () => {
   const [likedPosts, setLikedPosts] = useState({});
@@ -96,7 +96,28 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-10 flex-1 overflow-auto max-h-[650px]">
+    <div className="ml-[90px] max-w-[1200px] mx-auto py-2 pt-10 flex-1 overflow-y-auto max-h-[650px] posts-container">
+      {/* Custom Scrollbar Styles */}
+  <style>
+    {`
+      .posts-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .posts-container::-webkit-scrollbar-thumb {
+        background-color: #6B5DD3;
+        border-radius: 10px;
+        border: 2px solid #3A3955;
+      }
+      .posts-container::-webkit-scrollbar-thumb:hover {
+        background-color: #584CC6;
+      }
+      .posts-container::-webkit-scrollbar-track {
+        background-color: #2F2C50;
+        border-radius: 10px;
+      }
+    `}
+  </style>
+      {/* Default Search */}
       {/* Mira's profile image positioned at the top right corner */}
       <div className="absolute top-4 right-4">
         <img

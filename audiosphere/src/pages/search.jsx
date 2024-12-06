@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import AlexaProfile from "./alexaProfile"; // Import Alexa's profile component
-import heart from "../assets/icons/heart-svgrepo-com.svg"; // Import heart icon
-import plus from "../assets/icons/plus-large-svgrepo-com.svg"; // Import plus icon
-import searchIcon from "../assets/icons/search-svgrepo-com.svg"; // Import search icon
 import alexa from "../assets/alexa-miller.jpg";
+import frankOcean from "../assets/frank.svg"; // Add Frank Ocean's image
+import searchIcon from "../assets/icons/search-svgrepo-com.svg"; // Import search icon
 import playlistpic1 from "../assets/playlist1-pic.jpg";
 import playlistpic2 from "../assets/playlist2-pic.jpg";
 import playlistpic3 from "../assets/playlist3-pic.jpg";
-import play from "../assets/icons/play-svgrepo-com.svg";
-import frankOcean from "../assets/frank.svg"; // Add Frank Ocean's image
+import AlexaProfile from "./alexaProfile"; // Import Alexa's profile component
 
 
 function SearchPage() {
@@ -114,11 +111,35 @@ function SearchPage() {
       </div>
 
       {/*default search*/}
-      <div className="main-content" style={{ 
-        height: '400px', 
-        overflow: 'scroll',
-        marginTop: '200px'
-      }}>
+      {/* Default Search */}
+<div
+  className="main-content posts-container"
+  style={{ 
+    height: '400px', 
+    overflowY: 'scroll',
+    marginTop: '200px' 
+  }}
+>
+  {/* Custom Scrollbar Styles */}
+  <style>
+    {`
+      .posts-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .posts-container::-webkit-scrollbar-thumb {
+        background-color: #6B5DD3;
+        border-radius: 10px;
+        border: 2px solid #3A3955;
+      }
+      .posts-container::-webkit-scrollbar-thumb:hover {
+        background-color: #584CC6;
+      }
+      .posts-container::-webkit-scrollbar-track {
+        background-color: #2A2945;
+        border-radius: 10px;
+      }
+    `}
+  </style>
         {!showResults ? (
           <>
             <h2 className="text-white font-medium mt-4 text-xl ml-[20px]">Popular playlists</h2>
@@ -192,7 +213,26 @@ function SearchPage() {
 
       <div className="bg-[#2F2C50] h-100% rounded-lg p-2">
         {searchQuery.toLowerCase() === "alexa miller" && (
-          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4">
+          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4 posts-container">
+            <style>
+    {`
+      .posts-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .posts-container::-webkit-scrollbar-thumb {
+        background-color: #6B5DD3;
+        border-radius: 10px;
+        border: 2px solid #3A3955;
+      }
+      .posts-container::-webkit-scrollbar-thumb:hover {
+        background-color: #584CC6;
+      }
+      .posts-container::-webkit-scrollbar-track {
+        background-color: #2F2C50;
+        border-radius: 10px;
+      }
+    `}
+  </style>
             {["Alexander", "IDK You Yet", "Cozy"].map((song, index) => (
               <div key={index} className="relative mb-12 w-full">
                 <div 
@@ -253,7 +293,27 @@ function SearchPage() {
           )}
 
         {searchQuery.toLowerCase() === "frank ocean" && (
-          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4">
+          <div className="ml-[8px] overflow-y-auto max-h-[300px] p-4 posts-container">
+            {/* Custom Scrollbar Styles */}
+  <style>
+    {`
+      .posts-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .posts-container::-webkit-scrollbar-thumb {
+        background-color: #6B5DD3;
+        border-radius: 10px;
+        border: 2px solid #3A3955;
+      }
+      .posts-container::-webkit-scrollbar-thumb:hover {
+        background-color: #584CC6;
+      }
+      .posts-container::-webkit-scrollbar-track {
+        background-color: #2A2945;
+        border-radius: 10px;
+      }
+    `}
+    </style>
             {["Pink + White", "White Ferrari", "Thinkin Bout You"].map((song, index) => (
               <div key={index} className="relative mb-12 w-full">
                 <div 
@@ -348,25 +408,33 @@ function SearchPage() {
 
     {/* Modal */}
     <div className="fixed inset-0 flex items-center justify-center z-50">
-      <div className="bg-[#19182D] p-6 rounded-lg shadow-lg w-[400px]">
-        <h2 className="text-white text-xl font-bold mb-4">Add to Playlist</h2>
+      <div className="relative bg-[#19182D] p-6 rounded-lg shadow-lg w-[400px]">
+        {/* Back Button */}
+        <button
+          onClick={() => setShowAddToPlaylistPopup(false)} // Close the modal
+          className="w-[30px] h-[30px] rounded-full bg-[#2F2C50] flex items-center justify-center transition duration-300 ease-in-out hover:filter hover:brightness-125 absolute top-[10px] left-[10px]"
+        >
+          <img src="/assets/icons/chevron-left-svgrepo-com.svg" alt="Back" className="w-15 h-10 -ml-[2.5px]" />
+        </button>
+
+        <h2 className="text-white text-xl font-bold mb-4 text-center">Add to Playlist</h2>
         
         {/* Existing Playlists */}
-<div className="mb-4">
-  <h3 className="text-white text-lg mb-2">Select Existing Playlist:</h3>
-  <button
-    className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
-    onClick={() => handleAddSongToPlaylist("its a bop")}
-  >
-    its a bop
-  </button>
-  <button
-    className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
-    onClick={() => handleAddSongToPlaylist("lofi")}
-  >
-    lofi
-  </button>
-</div>
+        <div className="mb-4">
+          <h3 className="text-white text-lg mb-2">Select Existing Playlist:</h3>
+          <button
+            className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
+            onClick={() => handleAddSongToPlaylist("its a bop")}
+          >
+            its a bop
+          </button>
+          <button
+            className="w-full bg-purple-300 text-[#19182D] rounded-lg p-2 mb-2 text-left hover:bg-purple-400 transition"
+            onClick={() => handleAddSongToPlaylist("lofi")}
+          >
+            lofi
+          </button>
+        </div>
 
         {/* Create New Playlist */}
         <div className="mt-4">
