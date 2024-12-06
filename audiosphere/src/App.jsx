@@ -26,13 +26,17 @@ function App() {
     setIsLoggedIn(true); // Set logged-in state to true after login
   };
 
+  const handleLogout = () => {
+    setIsLoggedIn(false); // Set logged-in state to false on logout
+  };
+
   return (
     <Router>
       <div className="min-h-screen">
         {isLoggedIn ? (
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<HomePage />} />
+              <Route index element={<HomePage onLogout={handleLogout} />} />
               <Route path="search" element={<SearchPage />} />
               <Route path="create" element={<CreatePage />} />
               <Route path="notifications" element={<NotificationsPage />} />
