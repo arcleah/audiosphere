@@ -18,8 +18,6 @@ A project for **CPSC 481** focused on creating an interface combining social med
 
 Follow these steps to set up and run the project locally:
 
-# How to run
-
 - git clone https://github.com/arcleah/audiosphere.git
 - cd audiosphere
 - npm install
