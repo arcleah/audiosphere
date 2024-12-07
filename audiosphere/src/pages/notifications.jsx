@@ -36,7 +36,27 @@ const NotificationsPage = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-auto py-2 pt-10 flex-1 max-h-[650px]">
+    <div className="relative h-screen overflow-y-auto py-2 pt-10 flex-1 max-h-[650px] posts-container">
+           {/* Custom Scrollbar Styles */}
+  <style>
+    {`
+      .posts-container::-webkit-scrollbar {
+        width: 8px;
+      }
+      .posts-container::-webkit-scrollbar-thumb {
+        background-color: #6B5DD3;
+        border-radius: 10px;
+        border: 2px solid #3A3955;
+      }
+      .posts-container::-webkit-scrollbar-thumb:hover {
+        background-color: #584CC6;
+      }
+      .posts-container::-webkit-scrollbar-track {
+        background-color: #2F2C50;
+        border-radius: 10px;
+      }
+    `}
+  </style>
         <div className="absolute left-[85px] top-[17px] w-[1000px]">
                 {/* Header section */}
           <h1 className="text-[#E2BBE9] text-4xl font-bold mb-8">What's New?</h1>
