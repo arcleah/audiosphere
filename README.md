@@ -1,6 +1,7 @@
 # **Audiosphere**
 
 A project for **CPSC 481** focused on creating an interface combining social media and music streaming features.
+You can view it here: https://audiospheree.netlify.app/
 
 ---
 
